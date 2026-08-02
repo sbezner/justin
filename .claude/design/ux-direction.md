@@ -566,8 +566,24 @@ occupy. No nested grid systems, no utility classes.
 .canvas > *        { grid-column: text; }        /* default */
 .canvas > .wide    { grid-column: wide; }        /* figures, charts, tables */
 .canvas > .full    { grid-column: full; }        /* horizon band, era plate rule */
-.canvas > .rail    { grid-column: rail; }        /* margin notes, era rail anchor */
+.canvas > .rail    { grid-column: rail; }        /* era rail track — RESERVED */
 ```
+
+> **Correction (post-build).** An earlier version of this spec put *margin notes* in
+> the `rail` column. That was wrong and it shipped a bug: at ≥1120px the era rail is
+> `position: fixed` and is painted over that exact track, so marginalia were 100%
+> invisible and their links were unclickable (`elementFromPoint` returned the rail's
+> own `<li>`). The `rail` column is reserved for the era rail and nothing else.
+> Marginalia belong in the **right** margin (`text-end / full-end`) at ≥1400px —
+> navigation left, annotation right — and fall back into the text column below that,
+> because between 1120 and 1399 the right track collapses to roughly nine characters.
+>
+> Related, same root cause: `--rail` is a **layout** token and must be declared on a
+> bare `:root`. It was originally declared inside the `:root,:root[data-theme="dark"]`
+> colour block, which scores (0,2,0) and silently outranks the (0,1,0) responsive
+> override — so the track resolved to `216px` in light and `0px` in dark, sliding every
+> `.canvas` child 108px left underneath the fixed rail. Structural tokens go on the
+> bare `:root`; only colour goes in the themed blocks.
 
 - `--rail: 0` below 1120px, `200px` at `xl`, `220px` at `xxl`.
 - Max composed content width 1140px (200 rail + 160 + 620 text + 160), matching the current

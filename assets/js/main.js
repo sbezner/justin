@@ -1,268 +1,289 @@
-/* =========================================================================
-   Red Clay & Lost Pines — interactions
-   Plain ES2018, no dependencies, no build step. Safe for GitHub Pages.
-   ========================================================================= */
+/* ==========================================================================
+   Red Clay & Lost Pines
+   Progressive enhancement only. The document is complete without this file.
+   Five jobs: theme, reveal, rail state, and three charts upgraded FROM the
+   tables already in the markup. No chart data exists in this file.
+   Every module is isolated: if one throws, the rest still run and that
+   module's ruled table simply stays visible.
+   ========================================================================== */
 (function () {
   'use strict';
 
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* ---------------------------------------------------------------- theme */
   var root = document.documentElement;
-  var toggle = document.getElementById('themeToggle');
-  var stored = null;
-  try { stored = localStorage.getItem('rcl-theme'); } catch (e) { /* private mode */ }
-  if (stored) {
-    root.setAttribute('data-theme', stored);
-  } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-    root.setAttribute('data-theme', 'light');
+  var NS = 'http://www.w3.org/2000/svg';
+  var mqReduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var reduce = mqReduce.matches;
+  if (mqReduce.addEventListener) {
+    mqReduce.addEventListener('change', function (e) { reduce = e.matches; });
   }
-  if (toggle) {
+
+  function mod(fn) { try { fn(); } catch (e) { /* isolated by design */ } }
+  function el(n, a) {
+    var e = document.createElementNS(NS, n);
+    for (var k in a) if (a[k] !== undefined) e.setAttribute(k, a[k]);
+    return e;
+  }
+  function txt(cls, x, y, s, anchor) {
+    var t = el('text', { 'class': cls, x: x, y: y, 'text-anchor': anchor || 'start' });
+    t.textContent = s; return t;
+  }
+  /* the 45-degree Democratic hatch: colour is never the only encoding */
+  function hatch(svg, id) {
+    var defs = el('defs', {});
+    var p = el('pattern', { id: id, width: 5, height: 5,
+      patternUnits: 'userSpaceOnUse', patternTransform: 'rotate(45)' });
+    p.appendChild(el('rect', { width: 5, height: 5, fill: 'var(--data-d)' }));
+    p.appendChild(el('rect', { width: 1.4, height: 5, fill: 'var(--bg)', opacity: 0.85 }));
+    defs.appendChild(p); svg.appendChild(defs);
+  }
+  function upgrade(id, decorativeSvg) {
+    var f = document.getElementById(id);
+    if (!f) return;
+    f.classList.add('chart--upgraded');
+    /* a data chart's SVG is decorative once its table is in the a11y tree */
+    if (decorativeSvg) {
+      var svg = f.querySelector('.chart__svg');
+      if (svg) {
+        svg.setAttribute('aria-hidden', 'true');
+        svg.removeAttribute('role');
+        svg.removeAttribute('aria-label');
+      }
+    }
+  }
+
+  /* -------------------------------------------------------------- THEME */
+  mod(function () {
+    var toggle = document.getElementById('themeToggle');
+    if (!toggle) return;
+    function sync() {
+      var light = root.getAttribute('data-theme') === 'light';
+      toggle.setAttribute('aria-pressed', String(light));
+      toggle.setAttribute('aria-label', light ? 'Switch to dark theme' : 'Switch to parchment theme');
+    }
+    sync();
     toggle.addEventListener('click', function () {
       var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
       root.setAttribute('data-theme', next);
-      try { localStorage.setItem('rcl-theme', next); } catch (e) { /* ignore */ }
-    });
-  }
-
-  /* ------------------------------------------------- scroll progress + nav */
-  var bar = document.getElementById('progressBar');
-  var topbar = document.getElementById('topbar');
-  var navLinks = Array.prototype.slice.call(document.querySelectorAll('.chapternav a'));
-  var sections = navLinks
-    .map(function (a) { return document.querySelector(a.getAttribute('href')); })
-    .filter(Boolean);
-
-  var ticking = false;
-  function onScroll() {
-    if (ticking) return;
-    ticking = true;
-    window.requestAnimationFrame(function () {
-      var doc = document.documentElement;
-      var max = doc.scrollHeight - window.innerHeight;
-      var pct = max > 0 ? (window.scrollY / max) * 100 : 0;
-      if (bar) bar.style.width = pct.toFixed(2) + '%';
-      if (topbar) topbar.classList.toggle('stuck', window.scrollY > 40);
-
-      var mark = window.scrollY + window.innerHeight * 0.35;
-      var current = -1;
-      for (var i = 0; i < sections.length; i++) {
-        if (sections[i].offsetTop <= mark) current = i;
-      }
-      navLinks.forEach(function (a, i) { a.classList.toggle('active', i === current); });
-
-      ticking = false;
-    });
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', onScroll);
-  onScroll();
-
-  /* ------------------------------------------------------- reveal on view */
-  var revealables = document.querySelectorAll('[data-reveal]');
-  if (!('IntersectionObserver' in window) || reduceMotion) {
-    Array.prototype.forEach.call(revealables, function (el) { el.classList.add('in'); });
-  } else {
-    var revealObserver = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry, i) {
-        if (!entry.isIntersecting) return;
-        var el = entry.target;
-        window.setTimeout(function () { el.classList.add('in'); }, i * 70);
-        revealObserver.unobserve(el);
-      });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
-    Array.prototype.forEach.call(revealables, function (el) { revealObserver.observe(el); });
-  }
-
-  /* ---------------------------------------- one-shot "in view" helper util */
-  function whenInView(el, fn) {
-    if (!el) return;
-    if (!('IntersectionObserver' in window)) { fn(); return; }
-    var io = new IntersectionObserver(function (entries) {
-      if (entries[0].isIntersecting) { fn(); io.disconnect(); }
-    }, { threshold: 0.25 });
-    io.observe(el);
-  }
-
-  /* ------------------------------- the long Democratic century, as tiles */
-  /* Presidential elections 1872 through 1968. Democrats carried Bastrop
-     County in virtually every one; 1896 (McKinley) is the lone Republican
-     plurality. Source: Handbook of Texas, "Bastrop County". */
-  var streak = document.getElementById('streakGrid');
-  if (streak) {
-    var frag = document.createDocumentFragment();
-    var tiles = [];
-    for (var y = 1872; y <= 1968; y += 4) {
-      var t = document.createElement('div');
-      t.className = 'tile' + (y === 1896 ? ' r' : '');
-      t.setAttribute('data-year', String(y));
-      t.title = y + ' — ' + (y === 1896 ? 'McKinley (R) plurality' : 'Democratic');
-      frag.appendChild(t);
-      tiles.push(t);
-    }
-    streak.appendChild(frag);
-    whenInView(streak, function () {
-      tiles.forEach(function (t, i) {
-        window.setTimeout(function () { t.classList.add('in'); }, reduceMotion ? 0 : i * 45);
-      });
-    });
-  }
-
-  /* ------------------------------------------- 2020 precincts: 17 R / 5 D */
-  var pgrid = document.getElementById('precinctGrid');
-  if (pgrid) {
-    var pfrag = document.createDocumentFragment();
-    var cells = [];
-    for (var p = 0; p < 22; p++) {
-      var c = document.createElement('div');
-      c.className = 'p' + (p < 17 ? ' r' : '');
-      c.title = p < 17 ? 'Majority Republican precinct' : 'Majority Democratic precinct';
-      pfrag.appendChild(c);
-      cells.push(c);
-    }
-    pgrid.appendChild(pfrag);
-    whenInView(pgrid, function () {
-      cells.forEach(function (c, i) {
-        window.setTimeout(function () { c.classList.add('in'); }, reduceMotion ? 0 : i * 40);
-      });
-    });
-  }
-
-  /* -------------------------------------------------------- result bars */
-  Array.prototype.forEach.call(document.querySelectorAll('.bar-fill'), function (fill) {
-    var pct = parseFloat(fill.getAttribute('data-pct')) || 0;
-    whenInView(fill.closest('.result-card') || fill, function () {
-      window.setTimeout(function () { fill.style.width = pct + '%'; }, 120);
+      try { localStorage.setItem('rcl-theme', next); } catch (e) {}
+      sync();
     });
   });
 
-  /* ---------------------------------------------------- counting numbers */
-  Array.prototype.forEach.call(document.querySelectorAll('[data-count]'), function (el) {
-    var target = parseFloat(el.getAttribute('data-count'));
-    var decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
-    var prefix = el.getAttribute('data-prefix') || '';
-    var suffix = el.getAttribute('data-suffix') || '';
-
-    function render(v) {
-      var n = decimals > 0
-        ? v.toFixed(decimals)
-        : Math.round(v).toLocaleString('en-US');
-      el.textContent = prefix + n + suffix;
-    }
-
-    if (reduceMotion) { render(target); return; }
-
-    whenInView(el, function () {
-      var duration = 1500;
-      var start = null;
-      function step(ts) {
-        if (start === null) start = ts;
-        var t = Math.min((ts - start) / duration, 1);
-        var eased = 1 - Math.pow(1 - t, 3);
-        render(target * eased);
-        if (t < 1) window.requestAnimationFrame(step);
-      }
-      window.requestAnimationFrame(step);
+  /* ---------------------------------------------------------------- TOC */
+  mod(function () {
+    var toc = document.querySelector('details.toc');
+    if (!toc) return;
+    document.addEventListener('click', function (e) {
+      if (toc.open && !toc.contains(e.target)) toc.open = false;
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && toc.open) { toc.open = false; toc.querySelector('summary').focus(); }
     });
   });
 
-  /* ------------------------------------------------- hero parallax ridges */
-  var ridges = document.querySelectorAll('.hero-ridge .ridge');
-  if (ridges.length && !reduceMotion) {
-    var pTicking = false;
-    window.addEventListener('scroll', function () {
-      if (pTicking) return;
-      pTicking = true;
-      window.requestAnimationFrame(function () {
-        var y = window.scrollY;
-        if (y < window.innerHeight * 1.2) {
-          ridges[0].style.transform = 'translateY(' + (y * 0.16) + 'px)';
-          ridges[1].style.transform = 'translateY(' + (y * 0.09) + 'px)';
-          ridges[2].style.transform = 'translateY(' + (y * 0.03) + 'px)';
-        }
-        pTicking = false;
-      });
-    }, { passive: true });
-  }
+  /* ------------------------------------------------- THE SPINE (hero) --
+     A time axis that is also a table of contents. Marks are brass, not a
+     party colour: this is wayfinding, not a data series. */
+  mod(function () {
+    var svg = document.getElementById('spineSvg');
+    var rows = svg && [].slice.call(document.querySelectorAll('#spineData tr'));
+    if (!svg || !rows || !rows.length) return;
 
-  /* ----------------------------------------------- embers over the pines */
-  var canvas = document.getElementById('emberCanvas');
-  if (canvas && !reduceMotion) {
-    var ctx = canvas.getContext('2d');
-    var particles = [];
-    var w = 0, h = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var running = true;
+    var W = 1000, m = 30, y = 64, lo = 1850, hi = 2032;
+    function X(yr) { return m + (yr - lo) / (hi - lo) * (W - 2 * m); }
 
-    function resize() {
-      w = canvas.clientWidth;
-      h = canvas.clientHeight;
-      canvas.width = Math.floor(w * dpr);
-      canvas.height = Math.floor(h * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      seed();
+    svg.appendChild(el('line', { 'class': 'ax', x1: m, y1: y, x2: W - m, y2: y }));
+    svg.appendChild(el('line', { 'class': 'ax', x1: m, y1: y - 6, x2: m, y2: y + 6 }));
+    svg.appendChild(el('line', { 'class': 'ax', x1: W - m, y1: y - 6, x2: W - m, y2: y + 6 }));
+
+    rows.forEach(function (r, i) {
+      var yr = +r.getAttribute('data-year');
+      var x = X(yr);
+      var high = i % 2 === 0;            /* stagger so labels never collide */
+      var ly = high ? y - 20 : y - 40;
+      var a = el('a', { href: r.getAttribute('data-href') || '#' });
+      /* transparent hit area: >=44 CSS px wide and tall at every breakpoint */
+      a.appendChild(el('rect', { 'class': 'hit', x: x - 40, y: 0, width: 80, height: 112 }));
+      a.appendChild(el('line', { 'class': 'ax', x1: x, y1: y - 8, x2: x, y2: ly + 5 }));
+      a.appendChild(el('circle', { 'class': 'mk', cx: x, cy: y, r: 6 }));
+      a.appendChild(txt('lbl', x, ly, r.getAttribute('data-label') || '', 'middle'));
+      a.appendChild(txt('yr', x, y + 24, String(yr), 'middle'));
+      svg.appendChild(a);
+    });
+    upgrade('spineFig');
+  });
+
+  /* ---------------------------------------------------- RUNBAND (Ch IV)
+     One continuous band, not twenty-four bars. The source characterises the
+     run as "virtually every" election and names only 1896; drawing each year
+     as an individually attested result would harden a hedge it did not make. */
+  mod(function () {
+    var svg = document.getElementById('runSvg');
+    var rows = svg && [].slice.call(document.querySelectorAll('#runData tr'));
+    if (!svg || !rows || !rows.length) return;
+    hatch(svg, 'hatchD');
+
+    var W = 1000, m = 30, base = 120, band = 76, lo = 1870, hi = 1974;
+    function X(yr) { return m + (yr - lo) / (hi - lo) * (W - 2 * m); }
+
+    rows.forEach(function (r) {
+      var from = +r.getAttribute('data-from'), to = +r.getAttribute('data-to');
+      var kind = r.getAttribute('data-kind'), party = r.getAttribute('data-party');
+      var g = el('g', {});
+
+      if (kind === 'run') {
+        g.appendChild(el('rect', { 'class': 'bar-d', x: X(from).toFixed(1), y: base - band,
+          width: (X(to) - X(from)).toFixed(1), height: band }));
+        svg.appendChild(g);
+      } else {
+        var h = band * 1.12, w = 14, x = X(from) - w / 2;
+        g.appendChild(el('rect', { 'class': 'bar-r', x: x.toFixed(1), y: (base - h).toFixed(1),
+          width: w, height: h.toFixed(1) }));
+        svg.appendChild(g);
+        svg.appendChild(el('line', { 'class': 'lead', x1: X(from), y1: base - h - 4, x2: X(from), y2: 30 }));
+        svg.appendChild(txt('call', X(from) + 8, 26, '1896 — McKinley, plurality'));
+      }
+    });
+
+    svg.appendChild(el('line', { 'class': 'base', x1: m, y1: base + 0.5, x2: W - m, y2: base + 0.5 }));
+    [1880, 1900, 1920, 1940, 1960].forEach(function (d) {
+      svg.appendChild(el('line', { 'class': 'base', x1: X(d), y1: base, x2: X(d), y2: base + 5,
+        'stroke-width': 1 }));
+      svg.appendChild(txt('tick', X(d), base + 24, String(d), 'middle'));
+    });
+    svg.appendChild(txt('tick', X(1876), base + 46, 'Democratic — 1876 to 1968, twenty-four elections'));
+    upgrade('runFig', true);
+  });
+
+  /* --------------------------------------------------- THE PLATE (arc)
+     Two registers on one axis. Upper: direction. Lower: margin, which is
+     nearly empty on purpose — margins are documented for two elections. */
+  mod(function () {
+    var svg = document.getElementById('arcSvg');
+    var rows = svg && [].slice.call(document.querySelectorAll('#arcData tr'));
+    if (!svg || !rows || !rows.length) return;
+    hatch(svg, 'hatchA');
+
+    var W = 1000, mL = 54, mR = 26, lo = 1844, hi = 2030;
+    var baseA = 110, band = 64, zero = 250, PER = 2;   /* 2 units per point, ±25 */
+    function X(yr) { return mL + (yr - lo) / (hi - lo) * (W - mL - mR); }
+    function Y(v) { return zero - v * PER; }
+
+    svg.appendChild(txt('tick', mL, 18, 'WHO CARRIED THE COUNTY'));
+
+    var pts = [];
+    rows.forEach(function (r) {
+      var from = +r.getAttribute('data-from'), to = +r.getAttribute('data-to');
+      var kind = r.getAttribute('data-kind'), party = r.getAttribute('data-party');
+      var margin = r.getAttribute('data-margin');
+
+      if (kind === 'gap') {
+        svg.appendChild(el('line', { 'class': 'gapline', x1: X(from), y1: baseA, x2: X(from), y2: baseA - band * 0.62 }));
+        return;
+      }
+      var g = el('g', {});
+
+      if (kind === 'run') {
+        g.appendChild(el('rect', { 'class': 'bar-d', x: X(from).toFixed(1), y: baseA - band,
+          width: (X(to) - X(from)).toFixed(1), height: band }));
+      } else {
+        var isR = party === 'R', h = isR ? band * 1.12 : band, w = 9;
+        g.appendChild(el('rect', {
+          'class': party === 'R' ? 'bar-r' : party === 'D' ? 'bar-d' : 'bar-o',
+          x: (X(from) - w / 2).toFixed(1), y: (baseA - h).toFixed(1), width: w, height: h.toFixed(1) }));
+      }
+      svg.appendChild(g);
+      if (margin) pts.push({ yr: from, v: +margin });
+    });
+
+    svg.appendChild(el('line', { 'class': 'base', x1: mL, y1: baseA + 0.5, x2: W - mR, y2: baseA + 0.5 }));
+    svg.appendChild(txt('note', mL, 134, 'Dashed = no verified county return. Never interpolated.'));
+
+    /* lower register — margin */
+    svg.appendChild(txt('tick', mL, 186, 'REPUBLICAN MARGIN, IN POINTS'));
+    /* scale reference as edge ticks, not full-width gridlines: a rule running
+       under the only two data points competes with them for no gain */
+    [[20, 'R +20'], [-20, 'D +20']].forEach(function (p) {
+      svg.appendChild(el('line', { 'class': 'base', x1: mL, y1: Y(p[0]), x2: mL + 6, y2: Y(p[0]), 'stroke-width': 1 }));
+      svg.appendChild(txt('tick', mL - 8, Y(p[0]) + 4, p[1], 'end'));
+    });
+    svg.appendChild(el('line', { 'class': 'zero', x1: mL, y1: zero, x2: W - mR, y2: zero }));
+    svg.appendChild(txt('tick', mL - 8, zero + 4, 'even', 'end'));
+    svg.appendChild(txt('note', mL + 6, zero - 10, 'Margins are documented for 2020 and 2024 only.'));
+
+    pts.sort(function (a, b) { return a.yr - b.yr; });
+    for (var i = 1; i < pts.length; i++) {
+      svg.appendChild(el('line', { 'class': 'ln', x1: X(pts[i - 1].yr), y1: Y(pts[i - 1].v),
+        x2: X(pts[i].yr), y2: Y(pts[i].v) }));
     }
+    pts.forEach(function (p, i) {
+      svg.appendChild(el('circle', { 'class': 'pt', cx: X(p.yr), cy: Y(p.v), r: 5 }));
+      svg.appendChild(txt('call', X(p.yr) + (i ? 10 : -10), Y(p.v) + (i ? -14 : 6),
+        '+' + p.v.toFixed(1), i ? 'start' : 'end'));
+    });
 
-    function seed() {
-      var count = Math.max(28, Math.min(90, Math.round(w / 16)));
-      particles = [];
-      for (var i = 0; i < count; i++) {
-        particles.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          r: Math.random() * 1.9 + 0.5,
-          vy: -(Math.random() * 0.34 + 0.08),
-          vx: (Math.random() - 0.5) * 0.22,
-          a: Math.random() * 0.55 + 0.12,
-          tw: Math.random() * Math.PI * 2
+    svg.appendChild(el('line', { 'class': 'base', x1: mL, y1: 310, x2: W - mR, y2: 310 }));
+    [1850, 1875, 1900, 1925, 1950, 1975, 2000, 2025].forEach(function (d) {
+      svg.appendChild(el('line', { 'class': 'base', x1: X(d), y1: 310, x2: X(d), y2: 315, 'stroke-width': 1 }));
+      svg.appendChild(txt('tick', X(d), 332, String(d), 'middle'));
+    });
+    upgrade('arcFig', true);
+  });
+
+  /* ------------------------------------------------------------- REVEAL
+     Capped stagger, opacity and transform only. Under reduced motion no
+     timer is ever scheduled — the class is applied immediately. */
+  var items = document.querySelectorAll('[data-reveal]');
+  function showAll() { [].forEach.call(items, function (e) { e.classList.add('in'); }); }
+  try {
+    if (!('IntersectionObserver' in window) || reduce) {
+      showAll();
+    } else {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en, i) {
+          if (!en.isIntersecting) return;
+          io.unobserve(en.target);
+          if (reduce) { en.target.classList.add('in'); return; }
+          var d = Math.min(i, 3) * 60;
+          if (!d) { en.target.classList.add('in'); return; }
+          setTimeout(function () { en.target.classList.add('in'); }, d);
         });
-      }
+      }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+      [].forEach.call(items, function (e) { io.observe(e); });
     }
+  } catch (e) { showAll(); }
 
-    function tint() {
-      return root.getAttribute('data-theme') === 'light'
-        ? [194, 65, 12]
-        : [236, 196, 120];
-    }
-
-    function frame() {
-      if (!running) return;
-      ctx.clearRect(0, 0, w, h);
-      var rgb = tint();
-      for (var i = 0; i < particles.length; i++) {
-        var p = particles[i];
-        p.y += p.vy;
-        p.x += p.vx + Math.sin(p.tw) * 0.12;
-        p.tw += 0.012;
-        if (p.y < -8) { p.y = h + 8; p.x = Math.random() * w; }
-        if (p.x < -8) p.x = w + 8;
-        if (p.x > w + 8) p.x = -8;
-
-        var alpha = p.a * (0.6 + 0.4 * Math.sin(p.tw * 1.7));
-        ctx.beginPath();
-        ctx.fillStyle = 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + alpha.toFixed(3) + ')';
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      window.requestAnimationFrame(frame);
-    }
-
-    window.addEventListener('resize', resize);
-    document.addEventListener('visibilitychange', function () {
-      if (document.hidden) { running = false; }
-      else if (!running) { running = true; window.requestAnimationFrame(frame); }
+  /* ------------------------------------------ RAIL PROGRESS + POSITION
+     One scaleY on one element: compositor-only, no layout, no paint. */
+  mod(function () {
+    var fill = document.getElementById('railFill');
+    var chip = document.getElementById('chip');
+    var links = [].slice.call(document.querySelectorAll('.rail a'));
+    if (!links.length) return;
+    var targets = links.map(function (a) {
+      try { return document.querySelector(a.getAttribute('href')); } catch (e) { return null; }
     });
-
-    resize();
-    window.requestAnimationFrame(frame);
-
-    /* stop painting once the hero has scrolled well out of view */
-    var hero = document.getElementById('top');
-    if (hero && 'IntersectionObserver' in window) {
-      new IntersectionObserver(function (entries) {
-        var visible = entries[0].isIntersecting;
-        if (visible && !running && !document.hidden) { running = true; window.requestAnimationFrame(frame); }
-        if (!visible) running = false;
-      }, { threshold: 0 }).observe(hero);
+    var ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        var max = root.scrollHeight - window.innerHeight;
+        var p = max > 0 ? Math.min(window.scrollY / max, 1) : 0;
+        if (fill) fill.style.transform = 'scaleY(' + p.toFixed(4) + ')';
+        var mark = window.scrollY + window.innerHeight * 0.35, cur = -1;
+        for (var i = 0; i < targets.length; i++) {
+          if (targets[i] && targets[i].getBoundingClientRect().top + window.scrollY <= mark) cur = i;
+        }
+        links.forEach(function (a, i) {
+          if (i === cur) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+        });
+        if (chip && cur > -1) chip.textContent = links[cur].textContent.replace(/^\s*\d{4}\s*/, '').trim();
+        ticking = false;
+      });
     }
-  }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
+  });
 })();

@@ -3,537 +3,1326 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Red Clay &amp; Lost Pines — The Story of the Bastrop County Republicans</title>
-<meta name="description" content="An illustrated history of the Republican Party in Bastrop County, Texas — from the 1856 vote for Frémont, through Reconstruction and the long Democratic century, to the modern county party.">
+<title>Red Clay &amp; Lost Pines — The Republican Party in Bastrop County, Texas</title>
+<meta name="description" content="An independent history of the Republican Party in Bastrop County, Texas. The party has carried the county three times, and it was a different party each time — the freedmen's party at Cedar Creek, a landslide-year visitor, and the governing majority it is today.">
 <meta name="author" content="Bastrop County history project">
-<meta property="og:title" content="Red Clay &amp; Lost Pines — The Story of the Bastrop County Republicans">
-<meta property="og:description" content="An illustrated history of the Republican Party in Bastrop County, Texas.">
+<meta name="color-scheme" content="dark light">
+<meta property="og:title" content="Red Clay &amp; Lost Pines — The Republican Party in Bastrop County, Texas">
+<meta property="og:description" content="One name, three parties, a hundred and sixty years. An independent history of Bastrop County, Texas.">
 <meta property="og:type" content="website">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%230f1b16'/%3E%3Cpath d='M50 14 L74 78 H26 Z' fill='%23c2410c'/%3E%3Cpath d='M50 30 L66 78 H34 Z' fill='%232f6b4f'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230F1512'/%3E%3Crect x='9' y='7' width='2' height='19' fill='%23D9A441'/%3E%3Crect x='15' y='4' width='2' height='22' fill='%23D9A441'/%3E%3Crect x='21' y='9' width='2' height='17' fill='%23D9A441'/%3E%3C/svg%3E">
+<script>
+/* Two jobs, inline and tiny, to avoid a flash of the wrong theme and to gate the
+   reveal styles. If anything in main.js throws, the `js` class is removed and the
+   document reverts to its complete, fully-visible, no-JavaScript baseline. */
+(function(){var r=document.documentElement;r.className='js';
+try{var s=localStorage.getItem('rcl-theme');
+  if(s==='light'||s==='dark')r.setAttribute('data-theme',s);
+  else if(matchMedia('(prefers-color-scheme: light)').matches)r.setAttribute('data-theme','light');}catch(e){}
+addEventListener('error',function(){r.classList.remove('js');},{once:true});})();
+</script>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-<a class="skip-link" href="#chapter-1">Skip to the story</a>
+<a class="skip" href="#story">Skip to the story</a>
+<a class="skip" href="#contents">Skip to the chapter list</a>
+<a class="skip" href="#sources">Skip to sources</a>
 
-<!-- ============ progress + nav ============ -->
-<div class="progress-rail" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<!-- ===================== ERA RAIL — 1120px and up ====================== -->
+<!-- Entries are sized by the length of the era they cover, not evenly, so the
+     ninety-two-year Long Century occupies visibly more rail than 1848-1861.
+     Renders complete and clickable with JavaScript disabled. -->
+<nav class="rail" id="contents" aria-label="Chapters">
+  <div class="rail__spine" aria-hidden="true"></div>
+  <div class="rail__fill" id="railFill" aria-hidden="true"></div>
+  <ol>
+    <li style="--span:21"><a href="#ch1"><span class="yr">1827</span>I · Little Colony</a></li>
+    <li style="--span:18"><a href="#ch2" title="Chapter Two — The County That Voted No"><span class="yr">1848</span>II · Voted No</a></li>
+    <li style="--span:10"><a href="#ch3" title="Chapter Three — The Party of Lincoln at Cedar Creek"><span class="yr">1866</span>III · Cedar Creek</a></li>
+    <li style="--span:96"><a href="#ch4"><span class="yr">1876</span>IV · Long Century</a></li>
+    <li style="--span:28"><a href="#ch5"><span class="yr">1972</span>V · False Dawn</a></li>
+    <li style="--span:11"><a href="#ch6"><span class="yr">2000</span>VI · The Flip</a></li>
+    <li style="--span:9"><a href="#fire"><span class="yr">2011</span>The Fire</a></li>
+    <li style="--span:4"><a href="#ch7"><span class="yr">2020</span>VII · The Margin</a></li>
+    <li style="--span:6"><a href="#ch8" title="Chapter Eight — Down the Ballot, and the Party Today"><span class="yr">2024</span>VIII · Down-Ballot</a></li>
+    <li style="--span:6"><a href="#sources"><span class="yr">&nbsp;</span>Sources &amp; Notes</a></li>
+  </ol>
+</nav>
 
-<header class="topbar" id="topbar">
-  <a class="brand" href="#top">
-    <span class="brand-mark" aria-hidden="true">
-      <svg viewBox="0 0 40 40" width="26" height="26"><path d="M20 3 L31 30 H9 Z" fill="currentColor" opacity=".55"/><path d="M20 12 L28 34 H12 Z" fill="currentColor"/></svg>
-    </span>
-    <span class="brand-text"><b>Red Clay</b> &amp; Lost Pines</span>
-  </a>
-  <nav class="chapternav" aria-label="Chapters">
-    <a href="#chapter-1">Colony</a>
-    <a href="#chapter-2">1856</a>
-    <a href="#chapter-3">Reconstruction</a>
-    <a href="#chapter-4">The Long Century</a>
-    <a href="#chapter-5">The Turn</a>
-    <a href="#chapter-6">Bush Country</a>
-    <a href="#numbers">Numbers</a>
-    <a href="#modern">Today</a>
-  </nav>
-  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch color theme">
-    <span class="tt-icon" aria-hidden="true"></span>
-  </button>
+<!-- ===================== TOP BAR — below 1120px ========================= -->
+<header class="topbar">
+  <a class="wordmark" href="#top"><b>Red Clay</b> &amp; Lost Pines</a>
+  <span class="chip" id="chip">An independent history</span>
+  <details class="toc">
+    <summary>Contents</summary>
+    <div>
+      <ol>
+        <li><a href="#ch1">I · The Little Colony<span>1827–1837</span></a></li>
+        <li><a href="#ch2">II · The County That Voted No<span>1848–1861</span></a></li>
+        <li><a href="#ch3">III · The Party of Lincoln at Cedar Creek<span>1866–1890</span></a></li>
+        <li><a href="#ch4">IV · The Long Century<span>1876–1968</span></a></li>
+        <li><a href="#ch5">V · The False Dawn<span>1972–1996</span></a></li>
+        <li><a href="#ch6">VI · The Flip<span>2000–2004</span></a></li>
+        <li><a href="#fire">The Fire<span>2011</span></a></li>
+        <li><a href="#ch7">VII · The Margin<span>2020–2024</span></a></li>
+        <li><a href="#ch8">VIII · Down the Ballot<span>Today</span></a></li>
+        <li><a href="#sources">Sources &amp; Notes<span></span></a></li>
+      </ol>
+    </div>
+  </details>
+  <button class="toggle" id="themeToggle" type="button" aria-pressed="false"
+          aria-label="Switch to parchment theme"><i aria-hidden="true"></i></button>
 </header>
 
-<!-- ============ hero ============ -->
-<section class="hero" id="top">
-  <div class="hero-sky" aria-hidden="true">
-    <canvas id="emberCanvas"></canvas>
-  </div>
+<main id="story">
 
-  <div class="hero-ridge" aria-hidden="true">
-    <svg class="ridge ridge-3" viewBox="0 0 1440 320" preserveAspectRatio="none"><path d="M0 220 L60 190 L120 214 L190 168 L250 206 L320 176 L400 212 L470 180 L540 208 L620 172 L700 206 L780 178 L860 210 L940 182 L1020 214 L1100 184 L1180 212 L1260 186 L1340 214 L1440 190 V320 H0 Z"/></svg>
-    <svg class="ridge ridge-2" viewBox="0 0 1440 320" preserveAspectRatio="none"><path d="M0 252 L70 224 L140 254 L210 216 L286 250 L360 214 L440 252 L520 220 L600 254 L680 218 L760 250 L840 216 L920 252 L1000 220 L1080 254 L1170 218 L1260 252 L1350 222 L1440 250 V320 H0 Z"/></svg>
-    <svg class="ridge ridge-1" viewBox="0 0 1440 320" preserveAspectRatio="none"><path d="M0 286 L80 262 L160 288 L240 258 L330 290 L420 260 L510 290 L600 262 L690 292 L780 260 L870 290 L960 262 L1050 292 L1150 262 L1250 292 L1350 264 L1440 288 V320 H0 Z"/></svg>
-  </div>
+<!-- ================================ HERO =============================== -->
+<section class="hero canvas" id="top" data-era="ground">
 
-  <div class="hero-inner">
-    <p class="eyebrow" data-reveal>Bastrop County · Texas · est. 1836</p>
-    <h1 class="hero-title" data-reveal>
-      <span class="line">Red Clay</span>
-      <span class="line amp">&amp;</span>
-      <span class="line">Lost Pines</span>
-    </h1>
-    <p class="hero-sub" data-reveal>
-      The story of the Republican Party in Bastrop County — a county that voted for the
-      party's <em>first</em> presidential nominee in 1856, spent nearly a century voting against it,
-      and then came all the way back.
+  <!-- PineHorizon. A flat prairie horizon, the Colorado River bend, and a
+       colonnade of loblolly trunks — the Lost Pines. Decorative. -->
+  <svg class="horizon" viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice"
+       aria-hidden="true" focusable="false">
+    <defs>
+      <g id="pine">
+        <rect x="-1.8" y="-124" width="3.6" height="124"/>
+        <path d="M0-178c2 6 5 9 8 12-2 0-4-1-5-1 4 5 8 8 12 11-3 0-6-1-8-2 5 6 10 10 15 14
+                 -5 0-10-2-14-4 4 5 8 9 12 12-6-1-11-3-15-6 3 5 6 8 9 11-5-2-9-5-13-8v13h-3
+                 v-13c-4 3-8 6-13 8 3-3 6-6 9-11-4 3-9 5-15 6 4-3 8-7 12-12-4 2-9 4-14 4
+                 5-4 10-8 15-14-2 1-5 2-8 2 4-3 8-6 12-11-1 0-3 1-5 1 3-3 6-6 8-12z"/>
+      </g>
+    </defs>
+    <path class="far" d="M0 196 L240 193 L520 197 L800 192 L1080 196 L1440 194 V300 H0 Z"/>
+    <path class="river" d="M0 232 C260 218 470 248 720 236 C980 224 1200 250 1440 238
+                           L1440 254 C1200 266 980 240 720 252 C470 264 260 234 0 248 Z"/>
+    <path class="mid" d="M0 254 L300 251 L640 256 L980 250 L1440 255 V300 H0 Z"/>
+    <g class="near">
+      <use href="#pine" transform="translate(28,258) scale(1.05)"/>
+      <use href="#pine" transform="translate(72,256) scale(0.72)"/>
+      <use href="#pine" transform="translate(119,259) scale(1.18)"/>
+      <use href="#pine" transform="translate(154,256) scale(0.62)"/>
+      <use href="#pine" transform="translate(204,258) scale(0.94)"/>
+      <use href="#pine" transform="translate(231,255) scale(0.55)"/>
+      <use href="#pine" transform="translate(278,260) scale(1.24)"/>
+      <use href="#pine" transform="translate(320,256) scale(0.68)"/>
+      <use href="#pine" transform="translate(364,258) scale(0.88)"/>
+      <use href="#pine" transform="translate(394,255) scale(0.50)"/>
+      <use href="#pine" transform="translate(443,259) scale(1.10)"/>
+      <use href="#pine" transform="translate(485,256) scale(0.60)"/>
+      <use href="#pine" transform="translate(527,257) scale(0.82)"/>
+      <use href="#pine" transform="translate(574,258) scale(0.99)"/>
+      <use href="#pine" transform="translate(607,255) scale(0.52)"/>
+      <use href="#pine" transform="translate(659,260) scale(1.20)"/>
+      <use href="#pine" transform="translate(701,256) scale(0.70)"/>
+      <use href="#pine" transform="translate(745,258) scale(0.90)"/>
+      <use href="#pine" transform="translate(792,255) scale(0.58)"/>
+      <use href="#pine" transform="translate(836,259) scale(1.13)"/>
+      <use href="#pine" transform="translate(877,256) scale(0.66)"/>
+      <use href="#pine" transform="translate(921,258) scale(0.96)"/>
+      <use href="#pine" transform="translate(964,255) scale(0.48)"/>
+      <use href="#pine" transform="translate(1011,259) scale(1.07)"/>
+      <use href="#pine" transform="translate(1055,256) scale(0.64)"/>
+      <use href="#pine" transform="translate(1099,257) scale(0.86)"/>
+      <use href="#pine" transform="translate(1144,260) scale(1.16)"/>
+      <use href="#pine" transform="translate(1189,255) scale(0.56)"/>
+      <use href="#pine" transform="translate(1231,258) scale(0.92)"/>
+      <use href="#pine" transform="translate(1277,256) scale(0.74)"/>
+      <use href="#pine" transform="translate(1322,259) scale(1.09)"/>
+      <use href="#pine" transform="translate(1371,255) scale(0.60)"/>
+      <use href="#pine" transform="translate(1411,257) scale(0.84)"/>
+    </g>
+  </svg>
+
+  <p class="eyebrow" data-reveal>Bastrop County · Texas · An independent history</p>
+
+  <h1 data-reveal>Red Clay<span class="amp">&amp;</span>Lost Pines</h1>
+
+  <p class="dek" data-reveal>
+    The Republican Party has carried Bastrop County three times, and it was a different party
+    each time — <em>the freedmen's party at Cedar Creek, a landslide-year visitor, and the
+    governing majority it is today.</em>
+  </p>
+
+  <aside class="standing-note" data-reveal>
+    <p><b>What this page tracks.</b> The Republican Party of 1856, of 1872 and of 2024 are
+    different coalitions that share a name. This is a history of the name in one county, not of
+    a single continuous organization.</p>
+  </aside>
+
+  <!-- THE SPINE. A real time axis. Five turning points, each an anchor to its
+       chapter. Built from the table below; the table is the no-JS baseline.
+       Marks are brass — this is wayfinding, not a data series. -->
+  <div class="spine wide chart" id="spineFig" data-reveal>
+    <div class="ledger-wrap scroller">
+      <table class="ledger">
+        <caption>Five turning points, 1861–2024. Each links to its chapter.</caption>
+        <thead><tr><th scope="col">Year</th><th scope="col">Turning point</th></tr></thead>
+        <tbody id="spineData">
+          <tr data-year="1861" data-href="#ch2" data-label="Secession"><th scope="row">1861</th><td><a href="#ch2">The county votes against secession, 352 to 335</a></td></tr>
+          <tr data-year="1888" data-href="#ch3" data-label="Cedar Creek"><th scope="row">1888</th><td><a href="#ch3">Orange Wicks and Ike Wilson elected at Cedar Creek</a></td></tr>
+          <tr data-year="1972" data-href="#ch5" data-label="Nixon"><th scope="row">1972</th><td><a href="#ch5">Nixon carries the county — and it does not hold</a></td></tr>
+          <tr data-year="2000" data-href="#ch6" data-label="The flip"><th scope="row">2000</th><td><a href="#ch6">Bush carries the county — and this time it holds</a></td></tr>
+          <tr data-year="2024" data-href="#ch8" data-label="Every race"><th scope="row">2024</th><td><a href="#ch8">Republicans win every race on the county ballot</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="chart__frame scroller">
+      <svg class="chart__svg" id="spineSvg" viewBox="0 0 1000 112" role="img"
+           aria-label="A time axis from 1861 to 2024 marking five turning points in the county's political history."></svg>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================= CHAPTER I ============================== -->
+<!-- Archetype A — Ground -->
+<section class="canvas" id="ch1" data-era="ground">
+  <header class="era-plate" data-reveal>
+    <span class="num">Chapter One</span>
+    <h2>The Little Colony</h2>
+    <p class="range"><time datetime="1827">1827</time>–<time datetime="1837">1837</time></p>
+    <p class="dek">Before there was a party, there was a place.</p>
+  </header>
+
+  <div class="prose" data-reveal>
+    <p>
+      Settlement began after <strong>Stephen F. Austin</strong> obtained a grant for a
+      &ldquo;Little Colony&rdquo; from the Mexican government in <strong>1827</strong>. By 1830 the
+      town of Bastrop had been founded, and settlers from Austin's lower colonies were clearing
+      farms across the southern part of the county. A second grant followed in <strong>1831</strong>;
+      together the two became the <strong>Mina Municipality</strong>.
     </p>
-    <div class="hero-actions" data-reveal>
-      <a class="btn btn-primary" href="#chapter-1">Begin the story</a>
-      <a class="btn btn-ghost" href="#numbers">Jump to the numbers</a>
-    </div>
-    <div class="scroll-cue" aria-hidden="true"><span></span></div>
-  </div>
-</section>
-
-<main>
-
-<!-- ============ chapter 1 ============ -->
-<section class="chapter" id="chapter-1">
-  <div class="wrap">
-    <div class="chapter-head" data-reveal>
-      <span class="chapter-num">Chapter One</span>
-      <h2>The Little Colony</h2>
-      <p class="chapter-dates">1827 — 1837</p>
-    </div>
-
-    <div class="lede" data-reveal>
-      Before there was a party, there was a place: a bend of the Colorado River where the
-      blackland prairie runs into a stand of loblolly pine that has no business being there.
-      Everything that follows happens on this ground.
-    </div>
-
-    <div class="grid-2">
-      <div class="prose" data-reveal>
-        <p>
-          Settlement began after <strong>Stephen F. Austin</strong> obtained a grant for a
-          "Little Colony" from the Mexican government in <strong>1827</strong>. By 1830 the town of
-          Bastrop had been founded and settlers from Austin's lower colonies were clearing farms
-          across the southern part of the county. A second grant followed in 1831; together the two
-          became the <strong>Mina Municipality</strong>, taking in nearly all of what is now
-          Bastrop County.
-        </p>
-        <p>
-          On <strong>March 17, 1836</strong> — in the middle of a revolution — Mina became an
-          official part of Texas. The town of Bastrop was formally born on
-          <strong>December 18, 1837</strong>. The name honors <strong>Felipe Enrique Neri</strong>,
-          the "Baron de Bastrop," the Dutch businessman who negotiated with Mexican officials to
-          make Austin's colonization possible.
-        </p>
-      </div>
-
-      <aside class="card card-fact" data-reveal>
-        <h3>The ground itself</h3>
-        <dl class="deflist">
-          <div><dt>Named for</dt><dd>Felipe Enrique Neri, Baron de Bastrop</dd></div>
-          <div><dt>Original name</dt><dd>Mina Municipality</dd></div>
-          <div><dt>Part of Texas</dt><dd>March 17, 1836</dd></div>
-          <div><dt>Town chartered</dt><dd>December 18, 1837</dd></div>
-          <div><dt>Landmark</dt><dd>The Lost Pines — an isolated loblolly forest</dd></div>
-        </dl>
-      </aside>
-    </div>
-  </div>
-</section>
-
-<!-- ============ chapter 2 ============ -->
-<section class="chapter chapter-alt" id="chapter-2">
-  <div class="wrap">
-    <div class="chapter-head" data-reveal>
-      <span class="chapter-num">Chapter Two</span>
-      <h2>A County Votes for Frémont</h2>
-      <p class="chapter-dates">1856 — 1860</p>
-    </div>
-
-    <div class="pullquote" data-reveal>
-      <blockquote>
-        In 1856, most voters in Bastrop County cast their ballots for John C. Frémont —
-        the candidate of a brand-new party called the Republicans.
-      </blockquote>
-    </div>
-
-    <div class="grid-2">
-      <div class="prose" data-reveal>
-        <p>
-          It is the fact that startles people who assume the county's politics arrived recently.
-          The Republican Party ran its first presidential campaign in 1856. In a slaveholding
-          county on the edge of the Texas frontier, a majority of Bastrop's voters backed it.
-        </p>
-        <p>
-          Four years later, on the eve of war, the county went for
-          <strong>John Bell of the Constitutional Union Party</strong> — the ticket of men trying to
-          hold the country together without joining either sectional camp. Twice in a row, Bastrop
-          County declined to follow the Southern Democratic consensus.
-        </p>
-        <p>Then the war came, and the ground shifted under everyone.</p>
-      </div>
-
-      <div class="card card-ballot" data-reveal>
-        <div class="ballot-head">Presidential vote · Bastrop County</div>
-        <ul class="ballot">
-          <li><span class="yr">1856</span><span class="nm">John C. Frémont</span><span class="pt pt-r">Republican</span></li>
-          <li><span class="yr">1860</span><span class="nm">John Bell</span><span class="pt pt-u">Constitutional Union</span></li>
-          <li class="dim"><span class="yr">1872</span><span class="nm">Horace Greeley</span><span class="pt pt-d">Democratic / Liberal Republican</span></li>
-          <li class="dim"><span class="yr">1896</span><span class="nm">William McKinley</span><span class="pt pt-r">Republican <em>(plurality)</em></span></li>
-          <li><span class="yr">1972</span><span class="nm">Richard Nixon</span><span class="pt pt-r">Republican</span></li>
-        </ul>
-        <p class="card-note">Carried the county in the years shown.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ chapter 3 ============ -->
-<section class="chapter" id="chapter-3">
-  <div class="wrap">
-    <div class="chapter-head" data-reveal>
-      <span class="chapter-num">Chapter Three</span>
-      <h2>The Party of Lincoln at Cedar Creek</h2>
-      <p class="chapter-dates">1867 — 1888</p>
-    </div>
-
-    <div class="lede" data-reveal>
-      Reconstruction gave Bastrop County its first mass Republican electorate — and it was Black.
-    </div>
-
-    <div class="timeline">
-      <article class="tl-item" data-reveal>
-        <div class="tl-year">1867–68</div>
-        <div class="tl-body">
-          <h3>Registration</h3>
-          <p>Freedmen's Bureau agents and federal troops ran voter registration drives across Texas.</p>
-        </div>
-      </article>
-      <article class="tl-item" data-reveal>
-        <div class="tl-year">1869</div>
-        <div class="tl-body">
-          <h3>The first ballots</h3>
-          <p>
-            Black men voted in Texas statewide elections for the first time. The same year,
-            <strong>Cal Thompson</strong> — freed from slavery and by then a leader among Black
-            residents of Bastrop County — bought land in the <strong>Cedar Creek</strong> community.
-          </p>
-        </div>
-      </article>
-      <article class="tl-item" data-reveal>
-        <div class="tl-year">1870s</div>
-        <div class="tl-body">
-          <h3>Fifty-two legislators</h3>
-          <p>
-            Fifty-two African American men served in the Texas Legislature during Reconstruction.
-            Every one of them was a Republican — in a state where secessionist Democrats had
-            carried the Confederacy.
-          </p>
-        </div>
-      </article>
-      <article class="tl-item tl-dark" data-reveal>
-        <div class="tl-year">1870s–80s</div>
-        <div class="tl-body">
-          <h3>And the backlash</h3>
-          <p>
-            Reconstruction in Bastrop County brought the same tensions felt across the South.
-            Racial confrontations flared around the community of Cedar Creek.
-          </p>
-        </div>
-      </article>
-      <article class="tl-item" data-reveal>
-        <div class="tl-year">May 1888</div>
-        <div class="tl-body">
-          <h3>Weeks and Wilson</h3>
-          <p>
-            Black political strength at Cedar Creek grew through the 1870s and 1880s. In the
-            elections of May 1888, <strong>Orange Weeks</strong> was elected justice of the peace and
-            <strong>Ike Wilson</strong> constable for the Cedar Creek precinct.
-          </p>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============ chapter 4 ============ -->
-<section class="chapter chapter-alt chapter-long" id="chapter-4">
-  <div class="wrap">
-    <div class="chapter-head" data-reveal>
-      <span class="chapter-num">Chapter Four</span>
-      <h2>The Long Century</h2>
-      <p class="chapter-dates">1874 — 1968</p>
-    </div>
-
-    <div class="grid-2">
-      <div class="prose" data-reveal>
-        <p>
-          Then the door closed. From <strong>1874 through 1968</strong>, Democratic presidential
-          candidates carried Bastrop County in virtually every single election — a run of nearly a
-          century.
-        </p>
-        <p>
-          There was exactly <strong>one</strong> interruption. In <strong>1896</strong>, Republican
-          <strong>William McKinley</strong> won a plurality of the county's votes. One year out of
-          twenty-four.
-        </p>
-        <p>
-          It is worth sitting with the length of that. A Republican voter in Bastrop County in 1930
-          could not remember a Republican carrying the county, and neither could their parents.
-        </p>
-      </div>
-
-      <div class="streak" data-reveal>
-        <div class="streak-label">Presidential elections, 1872 → 1968</div>
-        <div class="streak-grid" id="streakGrid" aria-hidden="true"></div>
-        <div class="streak-legend">
-          <span><i class="sw sw-d"></i> Democratic</span>
-          <span><i class="sw sw-r"></i> Republican plurality (1896)</span>
-        </div>
-        <p class="card-note">One tile per presidential election in the run.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ chapter 5 ============ -->
-<section class="chapter chapter-turn" id="chapter-5">
-  <div class="wrap">
-    <div class="chapter-head" data-reveal>
-      <span class="chapter-num">Chapter Five</span>
-      <h2>The Turn</h2>
-      <p class="chapter-dates">1972</p>
-    </div>
-
-    <div class="bigstat" data-reveal>
-      <div class="bigstat-year">1972</div>
-      <p>
-        <strong>Richard Nixon</strong> took Bastrop County with a comfortable majority — the first
-        Republican to carry it outright since before anyone living could remember. After 1972,
-        Republican candidates began to become genuinely competitive here.
-      </p>
-    </div>
-
-    <div class="prose center-prose" data-reveal>
-      <p>
-        Nothing about it was instant. The turn ran on the slow clock of rural Texas: county
-        conventions in borrowed halls, precinct chairs recruited one at a time, down-ballot races
-        that went uncontested for years before someone finally filed.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ chapter 6 ============ -->
-<section class="chapter chapter-alt" id="chapter-6">
-  <div class="wrap">
-    <div class="chapter-head" data-reveal>
-      <span class="chapter-num">Chapter Six</span>
-      <h2>Bush Country, and Down the Ballot</h2>
-      <p class="chapter-dates">2000 — 2004</p>
-    </div>
-
-    <div class="grid-2">
-      <div class="prose" data-reveal>
-        <p>
-          <strong>George W. Bush</strong> carried Bastrop County with comfortable majorities in both
-          <strong>2000</strong> and <strong>2004</strong> — a Texas governor from just up the road,
-          on a county map that had been trending his way for a generation.
-        </p>
-        <p>
-          The more consequential change was quieter. By the early twenty-first century, Republican
-          candidates were <strong>fully competitive in races for local offices</strong> too:
-          commissioners, judges, constables, the offices that actually run a county. A presidential
-          preference had become a party organization.
-        </p>
-      </div>
-      <div class="card card-quote" data-reveal>
-        <p class="q">
-          "By the early twenty-first century, Republican candidates were fully competitive in races
-          for local offices too."
-        </p>
-        <p class="attr">— Handbook of Texas, <i>Bastrop County</i></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ numbers ============ -->
-<section class="chapter chapter-numbers" id="numbers">
-  <div class="wrap">
-    <div class="chapter-head" data-reveal>
-      <span class="chapter-num">Chapter Seven</span>
-      <h2>By the Numbers</h2>
-      <p class="chapter-dates">2020 — 2024</p>
-    </div>
-
-    <div class="results">
-      <div class="result-card" data-reveal>
-        <h3>2020 Presidential</h3>
-        <div class="bars">
-          <div class="bar-row">
-            <span class="bar-name">Trump</span>
-            <div class="bar-track"><div class="bar-fill bar-r" data-pct="56"></div></div>
-            <span class="bar-val">56.0% <em>20,516</em></span>
-          </div>
-          <div class="bar-row">
-            <span class="bar-name">Biden</span>
-            <div class="bar-track"><div class="bar-fill bar-d" data-pct="42.2"></div></div>
-            <span class="bar-val">42.2% <em>15,110</em></span>
-          </div>
-        </div>
-        <p class="margin-line">Republican margin <strong>+13.8</strong> points</p>
-      </div>
-
-      <div class="result-card" data-reveal>
-        <h3>2024 Presidential</h3>
-        <div class="bars">
-          <div class="bar-row">
-            <span class="bar-name">Trump</span>
-            <div class="bar-track"><div class="bar-fill bar-r" data-pct="58.6"></div></div>
-            <span class="bar-val">58.6% <em>23,276</em></span>
-          </div>
-          <div class="bar-row">
-            <span class="bar-name">Harris</span>
-            <div class="bar-track"><div class="bar-fill bar-d" data-pct="40.1"></div></div>
-            <span class="bar-val">40.1% <em>15,941</em></span>
-          </div>
-        </div>
-        <p class="margin-line">Republican margin <strong>+18.5</strong> points <span class="delta">▲ 4.7 vs. 2020</span></p>
-        <p class="card-note">In the 2024 general election, Republican candidates won every race on the Bastrop County ballot.</p>
-      </div>
-
-      <div class="result-card precincts" data-reveal>
-        <h3>Precincts, 2020</h3>
-        <p class="precinct-sum"><strong>17 of 22</strong> voting precincts went majority Republican; five went majority Democratic.</p>
-        <div class="precinct-grid" id="precinctGrid" aria-hidden="true"></div>
-        <div class="streak-legend">
-          <span><i class="sw sw-r"></i> Majority R</span>
-          <span><i class="sw sw-d"></i> Majority D</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="statrow">
-      <div class="stat" data-reveal>
-        <div class="stat-num" data-count="102370">0</div>
-        <div class="stat-label">County population, 2023 estimate</div>
-      </div>
-      <div class="stat" data-reveal>
-        <div class="stat-num" data-count="21.1" data-suffix="%" data-decimals="1">0</div>
-        <div class="stat-label">Population growth, 2019 → 2023</div>
-      </div>
-      <div class="stat" data-reveal>
-        <div class="stat-num" data-count="13" data-prefix="#">0</div>
-        <div class="stat-label">Fastest-growing county in Texas, 2020–23</div>
-      </div>
-      <div class="stat" data-reveal>
-        <div class="stat-num" data-count="97.25" data-suffix="%" data-decimals="2">0</div>
-        <div class="stat-label">Of that growth from people moving in</div>
-      </div>
-    </div>
-
-    <p class="growth-note" data-reveal>
-      Bastrop County grew <strong>13.9%</strong> between 2020 and 2023 alone. Almost none of that is
-      babies; nearly all of it is arrivals. Every county party in Central Texas is now organizing a
-      county that is partly made of strangers — which is either the opportunity or the threat,
-      depending on who you ask.
+    <p>
+      On <strong>March 17, 1836</strong> Mina became an official part of Texas. The town of Bastrop
+      was formally born on <strong>December 18, 1837</strong>. The name honours
+      <strong>Felipe Enrique Neri</strong>, the &ldquo;Baron de Bastrop.&rdquo;
+    </p>
+    <p>
+      The ground is a bend of the Colorado River where blackland prairie runs into a stand of
+      loblolly pine that has no business being there — an isolated population a hundred miles west
+      of the forest it belongs to. Everything that follows happens here.
     </p>
   </div>
+
+  <svg class="horizon horizon--divider" viewBox="0 0 1440 72" preserveAspectRatio="xMidYMax slice"
+       aria-hidden="true" focusable="false">
+    <defs>
+      <g id="pine-sm">
+        <rect x="-0.7" y="-44" width="1.4" height="44"/>
+        <path d="M0-64c1 3 2 4 3.5 5.5-1 0-1.8-.4-2.4-.6 1.8 2.4 3.6 3.8 5.4 5-1.4 0-2.6-.4-3.6-.9
+                 2.2 2.6 4.4 4.4 6.6 6.2-2.2 0-4.4-.9-6.2-1.8v5.6h-1.6v-5.6c-1.8.9-4 1.8-6.2 1.8
+                 2.2-1.8 4.4-3.6 6.6-6.2-1 .5-2.2.9-3.6.9 1.8-1.2 3.6-2.6 5.4-5-.6.2-1.4.6-2.4.6
+                 1.5-1.5 2.5-2.5 3.5-5.5z"/>
+      </g>
+    </defs>
+    <path class="mid" d="M0 66 L340 64 L720 67 L1090 64 L1440 66 V72 H0 Z"/>
+    <g class="near">
+      <use href="#pine-sm" transform="translate(38,67) scale(0.9)"/>
+      <use href="#pine-sm" transform="translate(96,66) scale(0.6)"/>
+      <use href="#pine-sm" transform="translate(163,67) scale(1.0)"/>
+      <use href="#pine-sm" transform="translate(214,66) scale(0.55)"/>
+      <use href="#pine-sm" transform="translate(281,67) scale(0.85)"/>
+      <use href="#pine-sm" transform="translate(337,66) scale(0.62)"/>
+      <use href="#pine-sm" transform="translate(404,67) scale(1.05)"/>
+      <use href="#pine-sm" transform="translate(462,66) scale(0.58)"/>
+      <use href="#pine-sm" transform="translate(529,67) scale(0.92)"/>
+      <use href="#pine-sm" transform="translate(588,66) scale(0.64)"/>
+      <use href="#pine-sm" transform="translate(651,67) scale(0.98)"/>
+      <use href="#pine-sm" transform="translate(714,66) scale(0.56)"/>
+      <use href="#pine-sm" transform="translate(779,67) scale(0.88)"/>
+      <use href="#pine-sm" transform="translate(841,66) scale(0.66)"/>
+      <use href="#pine-sm" transform="translate(906,67) scale(1.02)"/>
+      <use href="#pine-sm" transform="translate(968,66) scale(0.54)"/>
+      <use href="#pine-sm" transform="translate(1033,67) scale(0.9)"/>
+      <use href="#pine-sm" transform="translate(1097,66) scale(0.68)"/>
+      <use href="#pine-sm" transform="translate(1161,67) scale(0.96)"/>
+      <use href="#pine-sm" transform="translate(1226,66) scale(0.6)"/>
+      <use href="#pine-sm" transform="translate(1291,67) scale(0.86)"/>
+      <use href="#pine-sm" transform="translate(1358,66) scale(0.64)"/>
+      <use href="#pine-sm" transform="translate(1414,67) scale(0.94)"/>
+    </g>
+  </svg>
+
+  <p class="townmarks" data-reveal>
+    <span>Bastrop</span><span>Elgin</span><span>Smithville</span><span>Cedar Creek</span>
+    <span>McDade</span><span>Red Rock</span><span>Paige</span><span>Rosanky</span><span>String Prairie</span>
+  </p>
+
+  <figure class="fig wide" data-reveal>
+    <p class="fig__title">The ground itself</p>
+    <dl class="facts">
+      <div><dt>Named for</dt><dd>Felipe Enrique Neri, Baron de Bastrop</dd></div>
+      <div><dt>Original name</dt><dd>Mina Municipality</dd></div>
+      <div><dt>Part of Texas</dt><dd>March 17, 1836</dd></div>
+      <div><dt>Town chartered</dt><dd>December 18, 1837</dd></div>
+      <div><dt>Landmark</dt><dd>The Lost Pines — an isolated loblolly forest</dd></div>
+    </dl>
+    <p class="source-tag">
+      <span class="badge" data-state="reported">Reported</span>
+      <a href="#src-1">Handbook of Texas Online — <i>Bastrop County</i></a>
+      <span>These colonization details follow the Handbook and were not independently verified for this page.</span>
+    </p>
+  </figure>
 </section>
 
-<!-- ============ modern party ============ -->
-<section class="chapter chapter-alt" id="modern">
-  <div class="wrap">
-    <div class="chapter-head" data-reveal>
-      <span class="chapter-num">Chapter Eight</span>
-      <h2>The County Party Today</h2>
-      <p class="chapter-dates">Now</p>
+
+<!-- ============================= CHAPTER II ============================= -->
+<!-- Archetype B — Assertion -->
+<section class="canvas" id="ch2" data-era="rupture">
+  <header class="era-plate" data-reveal>
+    <span class="num">Chapter Two</span>
+    <h2>The County That Voted No</h2>
+    <p class="range"><time datetime="1848">1848</time>–<time datetime="1861">1861</time></p>
+    <p class="dek">Three elections running, the county declined the Southern Democratic
+      consensus. Then it voted against secession by seventeen votes.</p>
+  </header>
+
+  <blockquote class="epigraph wide" data-reveal>
+    <p>Bastrop County voted against secession, 352 to&nbsp;335.</p>
+  </blockquote>
+
+  <hr class="riverrule wide" aria-hidden="true">
+
+  <div class="prose" data-reveal>
+    <p>
+      Bastrop County went for the <strong>Whigs in 1848 and 1852</strong>, and for
+      <strong>John Bell of the Constitutional Union Party in 1860</strong> — the ticket of men
+      trying to hold the country together without joining either sectional camp. A pattern, not an
+      accident: three elections running, the county declined the Southern Democratic consensus.
+    </p>
+    <p>
+      On <strong>February 23, 1861</strong> the secession referendum came. Bastrop County voted
+      against secession, <strong>352 to 335</strong>. Seventeen votes. It was one of only about
+      <strong>18 of the 122 counties reporting</strong> to reject secession, in a statewide result
+      of roughly <strong>76% in favour</strong>.
+    </p>
+    <p>
+      And then the county armed and equipped Confederate companies anyway, and provided for
+      soldiers' families.
+    </p>
+  </div>
+
+  <blockquote class="beat" data-reveal>
+    <p>
+      A county can vote one way and march another. Bastrop's anti-secession majority was a
+      Unionist majority, not a Republican one — there was no Republican Party on the ballot in
+      Texas to be a majority for.
+    </p>
+  </blockquote>
+
+  <figure class="fig wide" data-reveal>
+    <p class="fig__title">The secession referendum · February 23, 1861</p>
+    <div class="refbar" role="img"
+         aria-label="Bastrop County secession referendum, February 23 1861: against secession 352 votes, for secession 335 votes.">
+      <span class="refbar__seg" data-side="against" style="--pct:352"></span>
+      <span class="refbar__seg" data-side="for" style="--pct:335"></span>
+    </div>
+    <p class="refbar__labels" aria-hidden="true">
+      <span style="--pct:352"><b>Against secession</b><i>352 votes</i></span>
+      <span style="--pct:335"><b>For secession</b><i>335 votes</i></span>
+    </p>
+    <p class="bbar__note">Segments are drawn in proportion to the vote counts. Margin: 17 votes.
+      This was not a party contest, so no party colour is used.</p>
+    <figcaption>
+      Bastrop was one of roughly eighteen of the one hundred and twenty-two Texas counties
+      reporting that rejected secession. Statewide, about 76% voted in favour.
+    </figcaption>
+    <p class="source-tag">
+      <span class="badge" data-state="verified">Verified</span>
+      <a href="#src-8">Texas Almanac and the <i>East Texas Historical Journal</i></a>
+    </p>
+  </figure>
+
+  <figure class="fig wide" data-reveal>
+    <p class="fig__title">Presidential elections carried in Bastrop County, 1848–1860</p>
+    <div class="scroller">
+      <table class="ledger">
+        <caption>The three elections before the war.</caption>
+        <thead><tr><th scope="col">Year</th><th scope="col">Carried by</th><th scope="col">Party</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">1848</th><td>Whig ticket</td><td><span class="swatch" data-party="O"></span>Whig</td></tr>
+          <tr><th scope="row">1852</th><td>Whig ticket</td><td><span class="swatch" data-party="O"></span>Whig</td></tr>
+          <tr><th scope="row">1856</th><td class="gapcell" colspan="2">No county result is claimed on this page — see the note below.</td></tr>
+          <tr><th scope="row">1860</th><td>John Bell</td><td><span class="swatch" data-party="O"></span>Constitutional Union</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="source-tag">
+      <span class="badge" data-state="verified">Verified</span>
+      <a href="#src-1">Handbook of Texas Online — <i>Bastrop County</i></a>
+    </p>
+  </figure>
+
+  <aside class="correction" data-reveal>
+    <p class="correction__label">Correction</p>
+    <h3>A note on 1856</h3>
+    <p>
+      An earlier version of this page repeated the Handbook of Texas's statement that most Bastrop
+      County voters chose <strong>John C. Frémont</strong>, the first Republican presidential
+      nominee, in 1856. That cannot be right: Frémont was not on the ballot in Texas and received
+      no votes in the state. The 1856 race here was Buchanan against Fillmore. The claim has been
+      removed.
+    </p>
+  </aside>
+</section>
+
+
+<!-- ============================ CHAPTER III ============================= -->
+<!-- Archetype C — Chronicle -->
+<section class="canvas" id="ch3" data-era="rupture">
+  <header class="era-plate" data-reveal>
+    <span class="num">Chapter Three</span>
+    <h2>The Party of Lincoln at Cedar Creek</h2>
+    <p class="range"><time datetime="1866">1866</time>–<time datetime="1890">1890</time></p>
+    <p class="dek">Reconstruction gave Bastrop County its first mass Republican electorate — and
+      it was Black.</p>
+  </header>
+
+  <p class="townmarks" data-reveal>
+    <span>Bastrop</span><span>Elgin</span><span>Smithville</span><b>Cedar Creek</b>
+    <span>McDade</span><span>Red Rock</span><span>Paige</span><span>Rosanky</span><span>String Prairie</span>
+  </p>
+
+  <ol class="chronicle wide">
+    <li class="chron" data-reveal>
+      <p class="chron__year">1866</p>
+      <div class="chron__body">
+        <h3>Jeremiah J. Hamilton</h3>
+        <p>
+          Born enslaved in Tennessee in July 1838 and brought to Texas as a slave in 1847,
+          <strong>Jeremiah J. Hamilton</strong> was literate despite the law against it. He becomes
+          a spokesman for Black workers and founds a school for Black students in Bastrop.
+        </p>
+      </div>
+    </li>
+    <li class="chron" data-reveal>
+      <p class="chron__year">1867</p>
+      <div class="chron__body">
+        <h3>Who gets to register</h3>
+        <p>
+          Hamilton sits on the board that <strong>registers Bastrop County voters</strong>.
+          Freedmen's Bureau agents and federal troops ran registration across Texas in 1867–68.
+        </p>
+      </div>
+    </li>
+    <li class="chron" data-reveal>
+      <p class="chron__year">1868–69</p>
+      <div class="chron__body">
+        <h3>The Constitutional Convention</h3>
+        <p>
+          <strong>Morgan C. Hamilton</strong> sits in the Constitutional Convention as a delegate
+          associated with Bastrop County; <strong>Julius Schuetze</strong>, a German-Texan
+          Unionist, sits for Fayette and Bastrop. The convention seated ninety delegates, eighty
+          white and ten Black.
+        </p>
+        <p class="chron__flag">
+          Morgan Hamilton's Bastrop seat is held here with <b>moderate confidence</b>; his life was
+          centred on Austin.
+        </p>
+      </div>
+    </li>
+    <li class="chron" data-reveal>
+      <p class="chron__year">1869</p>
+      <div class="chron__body">
+        <h3>The first ballots, and five hundred acres</h3>
+        <p>
+          Black men vote in Texas statewide elections for the first time. <strong>Cal (Calvin)
+          Thompson</strong>, born enslaved about 1828 in Tennessee, buys land at
+          <strong>Cedar Creek</strong> — at the suggestion of his former enslaver, Marshall Trigg
+          of Hills Prairie — and builds it to <strong>500 acres</strong>. The local newspaper calls
+          him &ldquo;a Negro of much influence in the community.&rdquo;
+        </p>
+      </div>
+    </li>
+    <li class="chron" data-reveal>
+      <p class="chron__year">1870–73</p>
+      <div class="chron__body">
+        <h3>The Twelfth Legislature</h3>
+        <p>
+          Elected as a Republican in 1869, Jeremiah J. Hamilton serves in the <strong>Texas House,
+          Twelfth Legislature, February 9, 1870 – January 14, 1873</strong>, representing Bastrop
+          and Fayette counties.
+        </p>
+      </div>
+    </li>
+    <li class="chron" data-reveal>
+      <p class="chron__year">1868–1900</p>
+      <div class="chron__body">
+        <h3>Fifty-two men</h3>
+        <p>
+          Across this period <strong>fifty-two African American men served Texas either in the
+          legislature or as delegates to a constitutional convention</strong>; forty-one served in
+          the legislature between 1868 and 1900. The Reconstruction-era cohort were Republicans.
+        </p>
+      </div>
+    </li>
+    <li class="chron chron--brass" data-reveal>
+      <p class="chron__year">May 1888</p>
+      <div class="chron__body">
+        <h3>Wicks and Wilson</h3>
+        <p>
+          <strong>Orange Wicks</strong> is elected justice of the peace and <strong>Ike
+          Wilson</strong> constable for the Cedar Creek precinct. Wicks was the <strong>first
+          African American elected justice of the peace in Bastrop County</strong>.
+        </p>
+      </div>
+    </li>
+    <li class="chron" data-tone="grave" data-reveal>
+      <p class="chron__year">June 13, 1889</p>
+      <div class="chron__body">
+        <h3>The Cedar Creek shootout</h3>
+        <p>
+          Tension around an assault case against Andy Litton. Justice <strong>Wicks</strong> called
+          the case; a defendant refused to let Constable <strong>Ike Wilson</strong> serve papers.
+          <strong>Four men were killed — two white, two Black.</strong> Wicks and Wilson were
+          arrested and charged with murder. Afterward, a considerable number of African Americans
+          were killed or forced into exile from Cedar Creek.
+        </p>
+      </div>
+    </li>
+    <li class="chron" data-tone="grave" data-reveal>
+      <p class="chron__year">April 21, 1890</p>
+      <div class="chron__body">
+        <h3>Cal Thompson is killed</h3>
+        <p>
+          Thompson is shot dead by two white men on the Bastrop–Cedar Creek road, more than four
+          and a half miles west of Bastrop. Governor Lawrence Sullivan Ross posted a
+          <strong>$250 reward</strong>. Newspapers called him &ldquo;a respectable and peaceable
+          colored man.&rdquo;
+        </p>
+      </div>
+    </li>
+    <li class="chron" data-tone="grave" data-reveal>
+      <p class="chron__year">1884 → 1896</p>
+      <div class="chron__body">
+        <h3>Cedar Creek empties</h3>
+        <p>
+          The community's population falls from <strong>600 to 250</strong> — a decline of
+          <strong>58%</strong>. <span class="derived">derived</span>
+        </p>
+        <p class="chron__flag">The two counts are the source's. The percentage is our arithmetic.</p>
+      </div>
+    </li>
+  </ol>
+
+  <blockquote class="beat" data-reveal>
+    <p>
+      Eighteen months separated the swearing-in from the shooting. The county's Republican
+      electorate did not drift away or change its mind. It was destroyed — and the law arrived
+      thirteen years later to formalize what the violence had already done.
+    </p>
+  </blockquote>
+
+  <p class="source-tag" data-reveal>
+    <span class="badge" data-state="verified">Verified</span>
+    <a href="#src-3">Handbook of Texas — <i>Thompson, Cal</i></a>,
+    <a href="#src-4"><i>Hamilton, Jeremiah J.</i></a>,
+    <a href="#src-5"><i>Cedar Creek</i></a>,
+    <a href="#src-6">Texas Legislative Reference Library</a>,
+    <a href="#src-9">Texas State Library</a>
+  </p>
+</section>
+
+
+<!-- ============================= CHAPTER IV ============================= -->
+<!-- Archetype D — Ledger: the chart is the argument, the prose is its caption. -->
+<section class="canvas" id="ch4" data-era="iron">
+  <header class="era-plate" data-reveal>
+    <span class="num">Chapter Four</span>
+    <h2>The Long Century</h2>
+    <p class="range"><time datetime="1876">1876</time>–<time datetime="1968">1968</time></p>
+    <p class="dek">Twenty-four elections. One interruption. And a set of laws that made it so.</p>
+  </header>
+
+  <figure class="fig wide chart chart--data" id="runFig" data-reveal>
+    <p class="fig__title">Presidential elections in Bastrop County, 1876–1968</p>
+    <p class="fig__claim">One interruption in twenty-four elections.</p>
+
+    <!-- The band, not twenty-four separate bars: the source characterises the run
+         as "virtually every" election and names only 1896. Drawing each year as an
+         individually attested result would harden a hedge the source did not make. -->
+    <div class="ledger-wrap scroller">
+      <table class="ledger">
+        <caption>What the record actually asserts about 1876–1968.</caption>
+        <thead><tr><th scope="col">Span</th><th scope="col">Carried by</th><th scope="col">What the source says</th></tr></thead>
+        <tbody id="runData">
+          <tr data-from="1876" data-to="1968" data-kind="run" data-party="D">
+            <th scope="row">1876–1968</th>
+            <td><span class="swatch" data-party="D"></span>Democratic</td>
+            <td>Democratic presidential candidates carried the county in <b>virtually every</b>
+              election across these twenty-four contests. Individual years are not separately
+              attested here.</td>
+          </tr>
+          <tr data-from="1896" data-to="1896" data-kind="single" data-party="R">
+            <th scope="row">1896</th>
+            <td><span class="swatch" data-party="R"></span>Republican</td>
+            <td>William McKinley — a <b>plurality</b>, not a majority. The one named interruption.</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
-    <div class="grid-3">
-      <div class="card" data-reveal>
-        <h3>What it is</h3>
-        <p>
-          The Bastrop County Republican Party is the official local representative of the
-          <strong>Republican Party of Texas</strong> — the county-level body through which state
-          party business actually happens.
-        </p>
-      </div>
-      <div class="card" data-reveal>
-        <h3>How it governs itself</h3>
-        <p>
-          Its governing body is the <strong>County Executive Committee (CEC)</strong>, made up of the
-          county chair together with the <strong>precinct chairs</strong> — one elected per voting
-          precinct. Power in a county party is precinct power.
-        </p>
-      </div>
-      <div class="card" data-reveal>
-        <h3>Where to find it</h3>
-        <p>
-          The party keeps a public calendar of monthly meetings and events, a precinct-chair
-          directory, and a newsletter at
-          <a href="https://www.bastropctygop.com/" rel="noopener">bastropctygop.com</a>.
-          It is a registered committee with the
-          <a href="https://www.fec.gov/data/committee/C00761148/" rel="noopener">FEC (C00761148)</a>
-          and a member of the local chambers of commerce.
-        </p>
-      </div>
+    <div class="chart__frame scroller">
+      <svg class="chart__svg runband" id="runSvg" viewBox="0 0 1000 172" role="img"
+           aria-label="A continuous Democratic band spanning 1876 to 1968, broken once, in 1896, by a Republican plurality for William McKinley."></svg>
     </div>
 
-    <div class="closer" data-reveal>
-      <p>
-        From Frémont in 1856 to a full county ballot in 2024 is a hundred and sixty-eight years,
-        and the line between those two points is anything but straight. It runs through
-        Reconstruction and its collapse, through a ninety-four-year drought, through Cedar Creek and
-        Nixon and Bush, and out into a county adding people faster than almost anywhere in Texas.
-      </p>
-      <p class="closer-kicker">The Lost Pines are still standing. The story isn't finished.</p>
+    <figcaption>
+      The Democratic run is drawn as a single continuous band because that is how the source
+      states it — &ldquo;virtually every&rdquo; election, with one named exception. The band
+      carries a diagonal hatch as well as colour, so it reads in greyscale and in print.
+    </figcaption>
+    <p class="source-tag">
+      <span class="badge" data-state="verified">Verified</span>
+      <a href="#src-1">Handbook of Texas Online — <i>Bastrop County</i></a>
+    </p>
+  </figure>
+
+  <div class="prose" data-reveal>
+    <p>
+      Then the door closed. From <strong>1876 through 1968</strong> — twenty-four presidential
+      elections — Democratic candidates carried Bastrop County in <strong>virtually every</strong>
+      one.
+    </p>
+    <p>
+      There was a single interruption. In <strong>1896</strong>, Republican <strong>William
+      McKinley</strong> won a <strong>plurality</strong> of the county's votes. Not a majority.
+    </p>
+    <p>
+      Four years earlier the county had a different kind of year. In <strong>1872</strong>
+      <strong>Horace Greeley</strong> carried most of the county's votes as the fusion nominee of
+      the Democratic Party and the Liberal Republicans. It was the first year county voters could
+      vote for president after Reconstruction; Texas cast no electoral votes in 1864 or 1868.
+      Greeley is counted here on the Democratic side, as the Handbook counts him.
+    </p>
+    <p>
+      It is worth naming what produced the silence, because it was not apathy. The violence came
+      first — <strong>1889 and 1890</strong>, a decade before any statute. Then the statutes
+      arrived.
+    </p>
+    <p>
+      In <strong>1902</strong> Texas adopted a <strong>poll tax</strong> of $1.50 to $1.75. A
+      federal court later found that its primary purpose <q>was the desire to disenfranchise the
+      Negro and the poor white supporters of the Populist Party</q>. In <strong>1903</strong> the
+      <strong>Terrell Election Law</strong> let parties restrict primary participation and paved
+      the way for the <strong>white primary</strong> — decisive in a one-party state, where the
+      Democratic primary <em>was</em> the election.
+    </p>
+    <p>
+      So: in 1930, many of the county's would-be Republican voters were not failing to remember a
+      Republican victory. <strong>They were barred from voting.</strong>
+    </p>
+  </div>
+
+  <figure class="fig wide" data-reveal>
+    <p class="fig__title">The machinery</p>
+    <dl class="facts">
+      <div><dt>1889–1890</dt><dd>Violence at Cedar Creek. The electorate is destroyed a decade before any statute.</dd></div>
+      <div><dt>1902</dt><dd>Poll tax, $1.50–$1.75.</dd></div>
+      <div><dt>1903</dt><dd>The Terrell Election Law, which let parties restrict primary participation.</dd></div>
+      <div><dt>Effect</dt><dd>The white primary — decisive in a one-party state, where the Democratic primary was the election.</dd></div>
+    </dl>
+    <p class="source-tag">
+      <span class="badge" data-state="verified">Verified</span>
+      <a href="#src-10"><i>United States v. Texas</i>, 252 F. Supp. 234 (W.D. Tex. 1966)</a>
+      <span>The court's finding on the poll tax's purpose.</span>
+    </p>
+  </figure>
+</section>
+
+
+<!-- ============================= CHAPTER V ============================== -->
+<!-- Archetype E — Single Fact -->
+<section class="canvas" id="ch5" data-era="turn">
+  <header class="era-plate" data-reveal>
+    <span class="num">Chapter Five</span>
+    <h2>The False Dawn</h2>
+    <p class="range"><time datetime="1972">1972</time>–<time datetime="1996">1996</time></p>
+    <p class="dek">Nixon in 1972 looks like the beginning of the story only if you stop there.</p>
+  </header>
+
+  <div class="single" data-reveal>
+    <p class="single__num">1972</p>
+    <p class="single__say"><strong>Richard Nixon</strong> took Bastrop County with a comfortable
+      majority.</p>
+  </div>
+
+  <div class="prose single__after" data-reveal>
+    <p>
+      And then the county went back. Democratic majorities in <strong>1976</strong> and
+      <strong>1988</strong>. In <strong>1984</strong> <strong>Ronald Reagan</strong> won it — the
+      exception, in a forty-nine-state landslide. In <strong>1992</strong> and
+      <strong>1996</strong> <strong>Bill Clinton</strong> won the county, but only
+      <strong>pluralities</strong>, partly because <strong>Ross Perot</strong> drew off voters who
+      might otherwise have gone Republican.
+    </p>
+  </div>
+
+  <blockquote class="beat" data-reveal>
+    <p>
+      Twenty-eight years separate Nixon's win from the majority that actually stayed. What 1972 and
+      1984 have in common is not Bastrop County — it is that both were national landslides.
+    </p>
+  </blockquote>
+
+  <figure class="fig wide" data-reveal>
+    <p class="fig__title">Presidential elections in Bastrop County, 1972–1996</p>
+    <div class="scroller">
+      <table class="ledger">
+        <caption>Seven elections. One of them is a hole in the record, and is left as one.</caption>
+        <thead><tr><th scope="col">Year</th><th scope="col">Carried by</th><th scope="col">Note</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">1972</th><td><span class="swatch" data-party="R"></span>Republican</td><td>Nixon — a comfortable majority</td></tr>
+          <tr><th scope="row">1976</th><td><span class="swatch" data-party="D"></span>Democratic</td><td>A Democratic majority</td></tr>
+          <tr class="is-gap"><th scope="row">1980</th><td><span class="swatch" data-party="X"></span>No verified result</td><td>A vote total surfaced that could not be re-verified, and the Handbook conspicuously omits the year. Left unmarked.</td></tr>
+          <tr><th scope="row">1984</th><td><span class="swatch" data-party="R"></span>Republican</td><td>Reagan — in a forty-nine-state landslide</td></tr>
+          <tr><th scope="row">1988</th><td><span class="swatch" data-party="D"></span>Democratic</td><td>A Democratic majority</td></tr>
+          <tr><th scope="row">1992</th><td><span class="swatch" data-party="D"></span>Democratic</td><td>Clinton — a plurality; Perot on the ballot</td></tr>
+          <tr><th scope="row">1996</th><td><span class="swatch" data-party="D"></span>Democratic</td><td>Clinton — a plurality; Perot on the ballot</td></tr>
+        </tbody>
+      </table>
     </div>
+    <figcaption>
+      1980 is shown as a gap because it is one. Nothing on this page interpolates a missing year.
+    </figcaption>
+    <p class="source-tag">
+      <span class="badge" data-state="verified">Verified</span>
+      <a href="#src-1">Handbook of Texas Online — <i>Bastrop County</i></a>
+      <span>See <a href="#note-3">the note on missing years</a>.</span>
+    </p>
+  </figure>
+</section>
+
+
+<!-- ============================= CHAPTER VI ============================= -->
+<!-- Archetype A — Ground -->
+<section class="canvas" id="ch6" data-era="present">
+  <header class="era-plate" data-reveal>
+    <span class="num">Chapter Six</span>
+    <h2>The Flip</h2>
+    <p class="range"><time datetime="2000">2000</time>–<time datetime="2004">2004</time></p>
+    <p class="dek">2000 is the real hinge, not 1972.</p>
+  </header>
+
+  <div class="prose" data-reveal>
+    <p>
+      <strong>George W. Bush</strong> carried Bastrop County with comfortable majorities in
+      <strong>2000</strong> and <strong>2004</strong> — and this time it held. Every presidential
+      election since has gone Republican.
+    </p>
+    <p>
+      That is the difference between 1972 and 2000, and it is the whole difference.
+      <strong>2000 is the real hinge.</strong>
+    </p>
+    <p>
+      By the early twenty-first century Republican candidates were competitive in races for local
+      offices too — commissioners, judges, constables, the offices that actually run a county. A
+      presidential preference was becoming a party organization. It would take another decade to
+      finish.
+    </p>
+  </div>
+
+  <aside class="marginal" data-reveal>
+    <p>The presidential flip and the local flip are different events — eleven and fifteen years
+      apart. <a href="#ch8">Chapter Eight</a>.</p>
+  </aside>
+
+  <svg class="horizon horizon--divider" viewBox="0 0 1440 72" preserveAspectRatio="xMidYMax slice"
+       aria-hidden="true" focusable="false">
+    <path class="mid" d="M0 66 L340 64 L720 67 L1090 64 L1440 66 V72 H0 Z"/>
+    <g class="near">
+      <use href="#pine-sm" transform="translate(52,67) scale(0.82)"/>
+      <use href="#pine-sm" transform="translate(118,66) scale(0.58)"/>
+      <use href="#pine-sm" transform="translate(186,67) scale(1.02)"/>
+      <use href="#pine-sm" transform="translate(243,66) scale(0.6)"/>
+      <use href="#pine-sm" transform="translate(309,67) scale(0.9)"/>
+      <use href="#pine-sm" transform="translate(371,66) scale(0.64)"/>
+      <use href="#pine-sm" transform="translate(437,67) scale(0.98)"/>
+      <use href="#pine-sm" transform="translate(498,66) scale(0.56)"/>
+      <use href="#pine-sm" transform="translate(563,67) scale(0.88)"/>
+      <use href="#pine-sm" transform="translate(627,66) scale(0.66)"/>
+      <use href="#pine-sm" transform="translate(692,67) scale(1.0)"/>
+      <use href="#pine-sm" transform="translate(757,66) scale(0.54)"/>
+      <use href="#pine-sm" transform="translate(821,67) scale(0.86)"/>
+      <use href="#pine-sm" transform="translate(884,66) scale(0.68)"/>
+      <use href="#pine-sm" transform="translate(949,67) scale(0.94)"/>
+      <use href="#pine-sm" transform="translate(1014,66) scale(0.6)"/>
+      <use href="#pine-sm" transform="translate(1078,67) scale(0.9)"/>
+      <use href="#pine-sm" transform="translate(1143,66) scale(0.62)"/>
+      <use href="#pine-sm" transform="translate(1208,67) scale(0.96)"/>
+      <use href="#pine-sm" transform="translate(1274,66) scale(0.58)"/>
+      <use href="#pine-sm" transform="translate(1339,67) scale(0.84)"/>
+      <use href="#pine-sm" transform="translate(1402,66) scale(0.66)"/>
+    </g>
+  </svg>
+</section>
+
+
+<!-- ============================== THE FIRE ============================== -->
+<!-- Archetype B — Assertion. Unnumbered: this is an interlude, not a chapter. -->
+<section class="canvas fire" id="fire" data-era="present">
+  <header class="era-plate" data-reveal>
+    <span class="num">Interlude</span>
+    <h2>The Fire</h2>
+    <p class="range"><time datetime="2011-09-04">September 4, 2011</time></p>
+    <p class="dek">The most destructive wildfire in Texas history burned through the Lost Pines
+      for fifty-five days.</p>
+  </header>
+
+  <blockquote class="epigraph wide" data-reveal>
+    <p>Thirty-two thousand four hundred acres of the Lost Pines.</p>
+  </blockquote>
+
+  <div class="prose" data-reveal>
+    <p>
+      The Bastrop County Complex Fire began on <strong>September 4, 2011</strong> and burned
+      <strong>fifty-five days</strong>. It destroyed roughly <strong>1,600 to 1,700 homes</strong>,
+      killed <strong>two people</strong>, caused about <strong>$325 million</strong> in losses, and
+      took about <strong>95% of Bastrop State Park</strong> and <strong>32,400 acres</strong> of
+      the Lost Pines. More than <strong>four million pines</strong> were replanted beginning in
+      January 2013.
+    </p>
+    <p>
+      By 2013, <strong>459 homes</strong> had been rebuilt — 46% of the 2011 stock, and 75% of all
+      rebuilding done between 2012 and 2021. <strong>747</strong> of the destroyed homes had
+      belonged to families with no resources or inadequate insurance.
+    </p>
+  </div>
+
+  <aside class="correction" data-reveal>
+    <p class="correction__label">A caution about cause</p>
+    <h3>The fire is not the explanation</h3>
+    <p>
+      There is <strong>no source</strong> for the claim that the fire changed the county's
+      partisan composition, and the rebuilding data cuts against it — the people who rebuilt were
+      largely existing residents, on their own lots. The county's transformation is far better
+      explained by Austin-driven in-migration, which <strong>predates the fire</strong>: the county
+      roughly doubled between 1990 and 2010.
+    </p>
+    <p>
+      The fire belongs on this page as a civic rupture with one documented political consequence —
+      County Judge Ronnie McDonald did not seek re-election in 2012, and the judgeship went
+      Republican and stayed. It does not belong here as a demographic cause.
+    </p>
+  </aside>
+
+  <figure class="fig wide" data-reveal>
+    <p class="fig__title">The Bastrop County Complex Fire</p>
+    <dl class="facts">
+      <div><dt>Began</dt><dd>September 4, 2011 — burned 55 days</dd></div>
+      <div><dt>Homes destroyed</dt><dd>Roughly 1,600–1,700</dd></div>
+      <div><dt>Deaths</dt><dd>Two</dd></div>
+      <div><dt>Losses</dt><dd>About $325 million</dd></div>
+      <div><dt>Lost Pines burned</dt><dd>32,400 acres; about 95% of Bastrop State Park</dd></div>
+      <div><dt>Replanting</dt><dd>More than 4 million pines, from January 2013</dd></div>
+      <div><dt>Rebuilt by 2013</dt><dd>459 homes — 46% of the 2011 stock</dd></div>
+    </dl>
+    <p class="source-tag">
+      <span class="badge" data-state="verified">Verified</span>
+      <a href="#src-15">Texas A&amp;M TRERC</a>,
+      <a href="#src-16">U.S. Department of the Interior and TPWD</a>
+    </p>
+  </figure>
+</section>
+
+
+<!-- ============================== THE PLATE ============================= -->
+<!-- Archetype D — Ledger. An inserted plate, not a numbered chapter. -->
+<section class="canvas plate" id="plate" data-era="iron">
+  <header class="era-plate" data-reveal>
+    <span class="num">Plate</span>
+    <h2>One county, one hundred and seventy years</h2>
+    <p class="range"><time datetime="1848">1848</time>–<time datetime="2024">2024</time></p>
+    <p class="dek">Everything the record supports, on one time axis — including the parts of it
+      that are missing.</p>
+  </header>
+
+  <figure class="fig wide chart chart--data" id="arcFig" data-reveal>
+    <p class="fig__title">Which party carried Bastrop County, and by how much</p>
+    <p class="fig__claim">Direction is documented for most of it. Margins are documented for two
+      elections.</p>
+
+    <div class="ledger-wrap scroller">
+      <table class="ledger">
+        <caption>Presidential results in Bastrop County. A dash means no verified county
+          return — never an estimate.</caption>
+        <thead><tr><th scope="col">Year</th><th scope="col">Carried by</th><th scope="col">Margin</th><th scope="col">Note</th></tr></thead>
+        <tbody id="arcData">
+          <tr data-from="1848" data-to="1848" data-kind="single" data-party="O"><th scope="row">1848</th><td><span class="swatch" data-party="O"></span>Whig</td><td>—</td><td></td></tr>
+          <tr data-from="1852" data-to="1852" data-kind="single" data-party="O"><th scope="row">1852</th><td><span class="swatch" data-party="O"></span>Whig</td><td>—</td><td></td></tr>
+          <tr data-from="1856" data-to="1856" data-kind="gap" class="is-gap"><th scope="row">1856</th><td><span class="swatch" data-party="X"></span>No result claimed</td><td>—</td><td>Frémont was not on the Texas ballot. See the correction in Chapter Two.</td></tr>
+          <tr data-from="1860" data-to="1860" data-kind="single" data-party="O"><th scope="row">1860</th><td><span class="swatch" data-party="O"></span>Constitutional Union</td><td>—</td><td>John Bell</td></tr>
+          <tr data-from="1864" data-to="1864" data-kind="gap" class="is-gap"><th scope="row">1864</th><td><span class="swatch" data-party="X"></span>No result</td><td>—</td><td>Texas cast no electoral votes.</td></tr>
+          <tr data-from="1868" data-to="1868" data-kind="gap" class="is-gap"><th scope="row">1868</th><td><span class="swatch" data-party="X"></span>No result</td><td>—</td><td>Texas cast no electoral votes.</td></tr>
+          <tr data-from="1872" data-to="1872" data-kind="single" data-party="D"><th scope="row">1872</th><td><span class="swatch" data-party="D"></span>Democratic</td><td>—</td><td>Horace Greeley, fusion nominee; counted on the Democratic side.</td></tr>
+          <tr data-from="1876" data-to="1968" data-kind="run" data-party="D"><th scope="row">1876–1968</th><td><span class="swatch" data-party="D"></span>Democratic</td><td>—</td><td>Twenty-four elections. Democratic in <b>virtually every</b> one.</td></tr>
+          <tr data-from="1896" data-to="1896" data-kind="single" data-party="R"><th scope="row">1896</th><td><span class="swatch" data-party="R"></span>Republican</td><td>—</td><td>McKinley — a plurality. The one named interruption.</td></tr>
+          <tr data-from="1972" data-to="1972" data-kind="single" data-party="R"><th scope="row">1972</th><td><span class="swatch" data-party="R"></span>Republican</td><td>—</td><td>Nixon</td></tr>
+          <tr data-from="1976" data-to="1976" data-kind="single" data-party="D"><th scope="row">1976</th><td><span class="swatch" data-party="D"></span>Democratic</td><td>—</td><td></td></tr>
+          <tr data-from="1980" data-to="1980" data-kind="gap" class="is-gap"><th scope="row">1980</th><td><span class="swatch" data-party="X"></span>No verified result</td><td>—</td><td>Not claimed.</td></tr>
+          <tr data-from="1984" data-to="1984" data-kind="single" data-party="R"><th scope="row">1984</th><td><span class="swatch" data-party="R"></span>Republican</td><td>—</td><td>Reagan</td></tr>
+          <tr data-from="1988" data-to="1988" data-kind="single" data-party="D"><th scope="row">1988</th><td><span class="swatch" data-party="D"></span>Democratic</td><td>—</td><td></td></tr>
+          <tr data-from="1992" data-to="1992" data-kind="single" data-party="D"><th scope="row">1992</th><td><span class="swatch" data-party="D"></span>Democratic</td><td>—</td><td>Clinton — a plurality</td></tr>
+          <tr data-from="1996" data-to="1996" data-kind="single" data-party="D"><th scope="row">1996</th><td><span class="swatch" data-party="D"></span>Democratic</td><td>—</td><td>Clinton — a plurality</td></tr>
+          <tr data-from="2000" data-to="2000" data-kind="single" data-party="R"><th scope="row">2000</th><td><span class="swatch" data-party="R"></span>Republican</td><td>—</td><td>Bush</td></tr>
+          <tr data-from="2004" data-to="2004" data-kind="single" data-party="R"><th scope="row">2004</th><td><span class="swatch" data-party="R"></span>Republican</td><td>—</td><td>Bush</td></tr>
+          <tr data-from="2008" data-to="2008" data-kind="gap" class="is-gap"><th scope="row">2008</th><td><span class="swatch" data-party="X"></span>No verified result</td><td>—</td><td>County return not verified for this page.</td></tr>
+          <tr data-from="2012" data-to="2012" data-kind="gap" class="is-gap"><th scope="row">2012</th><td><span class="swatch" data-party="X"></span>No verified result</td><td>—</td><td>County return not verified for this page.</td></tr>
+          <tr data-from="2016" data-to="2016" data-kind="gap" class="is-gap"><th scope="row">2016</th><td><span class="swatch" data-party="X"></span>No verified result</td><td>—</td><td>County return not verified for this page.</td></tr>
+          <tr data-from="2020" data-to="2020" data-kind="single" data-party="R" data-margin="13.8"><th scope="row">2020</th><td><span class="swatch" data-party="R"></span>Republican</td><td>R +13.8 <span class="derived">derived</span></td><td>Trump 56.0% / Biden 42.2%</td></tr>
+          <tr data-from="2024" data-to="2024" data-kind="single" data-party="R" data-margin="18.5"><th scope="row">2024</th><td><span class="swatch" data-party="R"></span>Republican</td><td>R +18.5 <span class="derived">derived</span></td><td>Trump 58.6% / Harris 40.1%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="chart__frame scroller">
+      <svg class="chart__svg arc" id="arcSvg" viewBox="0 0 1000 320" role="img"
+           aria-label="Two stacked registers on one time axis from 1848 to 2024. The upper register shows which party carried the county in each election, with a continuous Democratic band from 1876 to 1968 broken once in 1896, and dashed marks where no county return could be verified. The lower register shows the Republican margin, documented only for 2020 at plus 13.8 points and 2024 at plus 18.5 points."></svg>
+    </div>
+
+    <figcaption>
+      The upper register is direction: who carried the county. The lower register is margin, and
+      it is nearly empty on purpose — margins are documented on this page for
+      <strong>2020 and 2024 only</strong>. Dashed marks are years with no verified county return.
+      They are drawn as gaps and never interpolated.
+    </figcaption>
+    <p class="source-tag">
+      <span class="badge" data-state="verified">Verified</span>
+      <a href="#src-1">Handbook of Texas</a>,
+      <a href="#src-11">Election Atlas 2020</a>,
+      <a href="#src-12">KVUE 2024</a>
+      <span>Margins are our arithmetic from the sourced percentages. See
+        <a href="#note-3">the note on missing years</a>.</span>
+    </p>
+  </figure>
+</section>
+
+
+<!-- ============================ CHAPTER VII ============================= -->
+<!-- Archetype A — Ground -->
+<section class="canvas" id="ch7" data-era="present">
+  <header class="era-plate" data-reveal>
+    <span class="num">Chapter Seven</span>
+    <h2>The Margin, and the Ground It Stands On</h2>
+    <p class="range"><time datetime="2020">2020</time>–<time datetime="2024">2024</time></p>
+    <p class="dek">Two elections with verified county returns, and a county adding people faster
+      than almost anywhere in Texas.</p>
+  </header>
+
+  <div class="prose" data-reveal>
+    <p>
+      These are the only presidential vote totals on this page. Everything before them is
+      direction — who carried the county — because that is what the record supports.
+    </p>
+  </div>
+
+  <figure class="fig wide" data-reveal>
+    <p class="fig__title">2020 presidential · Bastrop County</p>
+    <div class="bbar" role="img"
+         aria-label="2020 presidential result in Bastrop County: Trump 56.0 percent with 20,516 votes; Biden 42.2 percent with 15,110 votes; other and write-in 1.8 percent.">
+      <span class="bbar__seg" data-party="R" style="--pct:56.0"><b>Trump 56.0%</b><i>20,516</i></span>
+      <span class="bbar__seg" data-party="D" style="--pct:42.2"><b>Biden 42.2%</b><i>15,110</i></span>
+      <span class="bbar__seg" data-party="O" style="--pct:1.8"></span>
+    </div>
+    <p class="bbar__note">
+      <span class="bbar__key" data-party="O" aria-hidden="true"></span>
+      Other and write-in <strong>1.8%</strong> <span class="derived">residual, our arithmetic</span>
+      — the sourced percentages do not total 100.
+    </p>
+    <p class="bbar__margin">Republican margin <b>+13.8</b> points <span class="derived">derived</span></p>
+    <p class="source-tag">
+      <span class="badge" data-state="reported">Reported</span>
+      <a href="#src-11">Election Atlas — Bastrop County precinct results, 2020</a>
+    </p>
+  </figure>
+
+  <figure class="fig wide" data-reveal>
+    <p class="fig__title">2024 presidential · Bastrop County</p>
+    <div class="bbar" role="img"
+         aria-label="2024 presidential result in Bastrop County: Trump 58.6 percent with 23,276 votes; Harris 40.1 percent with 15,941 votes; other and write-in 1.3 percent.">
+      <span class="bbar__seg" data-party="R" style="--pct:58.6"><b>Trump 58.6%</b><i>23,276</i></span>
+      <span class="bbar__seg" data-party="D" style="--pct:40.1"><b>Harris 40.1%</b><i>15,941</i></span>
+      <span class="bbar__seg" data-party="O" style="--pct:1.3"></span>
+    </div>
+    <p class="bbar__note">
+      <span class="bbar__key" data-party="O" aria-hidden="true"></span>
+      Other and write-in <strong>1.3%</strong> <span class="derived">residual, our arithmetic</span>
+      — the sourced percentages do not total 100.
+    </p>
+    <p class="bbar__margin">Republican margin <b>+18.5</b> points <span class="derived">derived</span></p>
+    <p class="source-tag">
+      <span class="badge" data-state="verified">Verified</span>
+      <a href="#src-12">KVUE — Central Texas county results, 2024</a>
+      <span>100% of precincts reporting.</span>
+    </p>
+  </figure>
+
+  <div class="prose" data-reveal>
+    <p>
+      In <strong>2020</strong>, <strong>17 of 22</strong> voting precincts went majority Republican;
+      five went majority Democratic.
+    </p>
+    <p class="precincts" aria-hidden="true">
+      <span class="pmark" data-party="R"></span><span class="pmark" data-party="R"></span><span class="pmark" data-party="R"></span><span class="pmark" data-party="R"></span><span class="pmark" data-party="R"></span><span class="pmark" data-party="R"></span><span class="pmark" data-party="R"></span><span class="pmark" data-party="R"></span><span class="pmark" data-party="R"></span><span class="pmark" data-party="R"></span><span class="pmark" data-party="R"></span><span class="pmark" data-party="R"></span><span class="pmark" data-party="R"></span><span class="pmark" data-party="R"></span><span class="pmark" data-party="R"></span><span class="pmark" data-party="R"></span><span class="pmark" data-party="R"></span><span class="pmark" data-party="D"></span><span class="pmark" data-party="D"></span><span class="pmark" data-party="D"></span><span class="pmark" data-party="D"></span><span class="pmark" data-party="D"></span>
+    </p>
+    <p class="source-tag">
+      <span class="badge" data-state="reported">Reported</span>
+      <a href="#src-11">Election Atlas, 2020</a>
+      <span>Single source; moderate-to-high confidence.</span>
+    </p>
+    <p>
+      In the <strong>2024</strong> general election, Republican candidates <strong>won every race
+      on the Bastrop County ballot</strong>.
+    </p>
+  </div>
+
+  <figure class="fig wide" data-reveal>
+    <p class="fig__title">The ground it stands on</p>
+    <p class="fig__claim">Each figure carries its own window. They are not the same window.</p>
+    <dl class="statline">
+      <div>
+        <dt>102,370</dt>
+        <dd>County population, <b>2023</b> — American Community Survey five-year estimate</dd>
+        <dd class="statline__src"><a href="#src-14">Community Impact / ACS</a></dd>
+      </div>
+      <div>
+        <dt>+21.1%</dt>
+        <dd>Population change, <b>2019 → 2023</b> — 84,522 to 102,370, ACS five-year estimates</dd>
+        <dd class="statline__src"><a href="#src-14">USAFacts / Community Impact</a></dd>
+      </div>
+      <div>
+        <dt>+13.9%</dt>
+        <dd>Population change, <b>2020 → 2023</b> — the 13th fastest-growing county in Texas for
+          that window</dd>
+        <dd class="statline__src"><a href="#src-14">KXAN / Census Bureau</a></dd>
+      </div>
+      <div>
+        <dt>97.25%</dt>
+        <dd>Share of growth from people moving in — this is a <b>2020–21</b> figure, not 2020–23</dd>
+        <dd class="statline__src"><a href="#src-14">KXAN</a></dd>
+      </div>
+      <div>
+        <dt>~119,000</dt>
+        <dd>Current <b>2025 estimate</b> <span class="derived">estimate</span></dd>
+        <dd class="statline__src"><a href="#src-14">World Population Review</a></dd>
+      </div>
+    </dl>
+    <figcaption>
+      The old version of this page stacked these figures as though they described one period. They
+      do not, and the differences matter.
+    </figcaption>
+    <p class="source-tag">
+      <span class="badge" data-state="reported">Reported</span>
+      <a href="#src-14">USAFacts, Community Impact, KXAN and World Population Review</a>
+      <span>American Community Survey five-year estimates and Census Bureau estimates; each row
+        is labelled to its own window.</span>
+    </p>
+  </figure>
+
+  <div class="prose" data-reveal>
+    <p>
+      Almost none of that growth is babies; nearly all of it is arrivals. Every county party in
+      Central Texas is now organizing a county that is partly made of strangers — which is either
+      the opportunity or the threat, depending on who you ask.
+    </p>
   </div>
 </section>
 
-<!-- ============ sources ============ -->
-<section class="chapter chapter-sources" id="sources">
-  <div class="wrap">
-    <h2 class="sources-title" data-reveal>Sources &amp; Notes</h2>
-    <ol class="sources" data-reveal>
-      <li>
-        <a href="https://www.tshaonline.org/handbook/entries/bastrop-county" rel="noopener">Handbook of Texas Online — <i>Bastrop County</i></a>
-        <span>Colonization and the Little Colony; the 1856 Frémont vote and 1860 Bell result; Greeley in 1872; the 1874–1968 Democratic run and the 1896 McKinley plurality; Nixon in 1972; Bush in 2000 and 2004; local-office competitiveness; Reconstruction tensions at Cedar Creek; Cal Thompson's 1869 land purchase; the May 1888 election of Orange Weeks and Ike Wilson.</span>
-      </li>
-      <li>
-        <a href="https://www.tshaonline.org/handbook/entries/african-americans-and-politics" rel="noopener">Handbook of Texas Online — <i>African Americans and Politics</i></a>
-        <span>Freedmen's Bureau registration drives, 1867–68; Black Texans voting in statewide elections from 1869.</span>
-      </li>
-      <li>
-        <a href="https://texashighways.com/culture/history/unveiling-the-stories-of-black-state-senators-in-post-civil-war-texas/" rel="noopener">Texas Highways — Black state legislators after the Civil War</a>
-        <span>Fifty-two African American men served as Texas legislators during Reconstruction; all were Republicans.</span>
-      </li>
-      <li>
-        <a href="https://www.zipdatamaps.com/election-atlas/county/tx/bastrop-county/map-of-2020-presidential-election-results-by-voting-precinct" rel="noopener">Election Atlas — Bastrop County precinct results, 2020</a>
-        <span>Trump 56.0% (20,516) / Biden 42.2% (15,110); 17 of 22 precincts majority Republican.</span>
-      </li>
-      <li>
-        <a href="https://www.kvue.com/article/news/politics/vote-texas/presidential-race-central-texas-counties/269-0d0ef374-5e26-4120-becf-eec6e72345d1" rel="noopener">KVUE — how Central Texas counties voted in 2024</a>
-        <span>Trump 58.6% (23,276) / Harris 40.1% (15,941), 100% of precincts reporting.</span>
-      </li>
-      <li>
-        <a href="https://ballotpedia.org/Bastrop_County,_Texas,_elections,_2024" rel="noopener">Ballotpedia — Bastrop County elections, 2024</a>
-        <span>Republican candidates won every race in the county's 2024 general election.</span>
-      </li>
-      <li>
-        <a href="https://usafacts.org/answers/is-the-population-growing-or-shrinking/county/bastrop-county-tx/" rel="noopener">USAFacts</a> &amp;
-        <a href="https://www.kxan.com/news/texas/maps-which-texas-counties-are-growing-the-fastest/" rel="noopener">KXAN</a>
-        <span>Population 84,522 (2019) → 102,370 (2023), +21.1%; 13.9% growth 2020–2023, 13th fastest-growing county in Texas; 97.25% of growth from in-migration.</span>
-      </li>
-      <li>
-        <a href="https://www.bastropctygop.com/" rel="noopener">Bastrop County Republican Party</a> ·
-        <a href="https://www.fec.gov/data/committee/C00761148/" rel="noopener">FEC committee C00761148</a>
-        <span>Party structure: the County Executive Committee of the county chair and precinct chairs; meetings, events, and precinct directory.</span>
-      </li>
-      <li class="note">
-        A note on 1872: Horace Greeley carried most of the county's votes that year as the fusion
-        nominee of the Democratic Party and the Liberal Republicans — he is counted here on the
-        Democratic side of the ledger, as the Handbook of Texas counts him.
-      </li>
-      <li class="note">
-        This page is an independent history project. It is not published by, affiliated with, or
-        endorsed by the Bastrop County Republican Party or any candidate or committee.
-      </li>
+
+<!-- ============================ CHAPTER VIII ============================ -->
+<!-- Archetype F — Roster -->
+<section class="canvas" id="ch8" data-era="present">
+  <header class="era-plate" data-reveal>
+    <span class="num">Chapter Eight</span>
+    <h2>Down the Ballot, and the Party Today</h2>
+    <p class="range">Now</p>
+    <p class="dek">The presidential flip and the local flip are different events, years apart.</p>
+  </header>
+
+  <blockquote class="beat" data-reveal>
+    <p>
+      The county judgeship passed from Democrat Ronnie McDonald to Republican Paul Pape in 2012,
+      and the sheriff's office to Republican Maurice Cook in 2016 — eleven and fifteen years after
+      the presidential vote had flipped.
+    </p>
+  </blockquote>
+
+  <figure class="fig wide" data-reveal>
+    <p class="fig__title">Who held the offices</p>
+    <div class="scroller">
+      <table class="ledger roster">
+        <caption>Selected county officeholders and party officers.</caption>
+        <thead><tr><th scope="col">Name</th><th scope="col">Office</th><th scope="col">What happened</th></tr></thead>
+        <tbody>
+          <tr>
+            <th scope="row"><span class="swatch" data-party="R"></span>Clara Beckett <span class="pty">(R)</span></th>
+            <td>Commissioner, Precinct 2</td>
+            <td>Elected <b>2002</b>. The longest-serving member of the commissioners court.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="swatch" data-party="D"></span>Ronnie McDonald <span class="pty">(D)</span></th>
+            <td>County Judge</td>
+            <td>Elected county judge in <b>1998 at age 27</b> — the youngest county judge in Texas
+              history and the first African American county judge in Bastrop County. He did not seek
+              re-election in <b>2012</b>, the year after the fire.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="swatch" data-party="R"></span>Paul Pape <span class="pty">(R)</span></th>
+            <td>County Judge</td>
+            <td>Won the county judgeship in a <b>2012 special election</b>; re-elected 2014 and 2018.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="swatch" data-party="R"></span>Maurice Cook <span class="pty">(R)</span></th>
+            <td>Sheriff</td>
+            <td>Won the <b>2016</b> Republican primary runoff <b>by four votes</b>, then took the
+              general with 58%.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="swatch" data-party="R"></span>Gregory Klaus <span class="pty">(R)</span></th>
+            <td>County Judge</td>
+            <td>Won the 2022 runoff and took office <b>January 2023</b>.</td>
+          </tr>
+          <tr>
+            <th scope="row"><span class="swatch" data-party="R"></span>Curtis Courtney</th>
+            <td>County Republican Party Chair</td>
+            <td>Chair since <b>June 2022</b>; a precinct chair from 2015.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="source-tag">
+      <span class="badge" data-state="verified">Verified</span>
+      <a href="#src-17">Ballotpedia, Spectrum News, KVUE, LegiStorm</a>,
+      <a href="#src-18">Bastrop County Republican Party</a>
+    </p>
+  </figure>
+
+  <aside class="correction" data-reveal>
+    <p class="correction__label">Not claimed</p>
+    <h3>What this page does not assert</h3>
+    <p>
+      This page does <strong>not</strong> claim an all-Republican commissioners court, and it does
+      not name a year in which a Republican majority was first achieved on it. Neither could be
+      established from the record available here.
+    </p>
+  </aside>
+
+  <figure class="fig wide" data-reveal>
+    <p class="fig__title">The county party</p>
+    <dl class="facts">
+      <div><dt>What it is</dt><dd>The official local representative of the Republican Party of Texas.</dd></div>
+      <div><dt>How it governs itself</dt><dd>By its <b>County Executive Committee</b> — the county
+        chair plus the precinct chairs, one elected per voting precinct. Power in a county party is
+        precinct power.</dd></div>
+      <div><dt>Where to find it</dt><dd>A public calendar, a precinct directory and a newsletter at
+        <a href="https://www.bastropctygop.com/" rel="noopener">bastropctygop.com</a>. It is a
+        registered committee with the
+        <a href="https://www.fec.gov/data/committee/C00761148/" rel="noopener">FEC, C00761148</a>.</dd></div>
+    </dl>
+    <p class="source-tag">
+      <span class="badge" data-state="verified">Verified</span>
+      <a href="#src-18">Bastrop County Republican Party and FEC committee C00761148</a>
+    </p>
+  </figure>
+
+  <div class="closer" data-reveal>
+    <p>
+      The Republican Party has carried Bastrop County three separate times, and it was a different
+      party each time. In the 1870s and 1880s it was the party of freedmen at Cedar Creek — and it
+      was destroyed, first by violence and then by law. In 1972 and 1984 it was a landslide-year
+      visitor that did not stay. Since 2000 it has been the county's governing majority.
+    </p>
+    <p class="closer__kicker">One name, three parties, a hundred and sixty years.</p>
+    <p class="closer__kicker">The Lost Pines are still standing. The story isn't finished.</p>
+  </div>
+</section>
+
+
+<!-- ============================== COLOPHON ============================= -->
+<!-- Archetype G -->
+<section class="canvas colophon" id="sources" data-era="present">
+  <header class="era-plate" data-reveal>
+    <span class="num">Colophon</span>
+    <h2>Sources &amp; Notes</h2>
+    <p class="dek">Every number on this page has a path to its source, and every hedge in the
+      sources survives into the text.</p>
+  </header>
+
+  <aside class="method wide" data-reveal>
+    <h3>Notes on method</h3>
+    <ol>
+      <li id="note-1"><b>On the Handbook's 1856 error.</b> The Handbook of Texas entry for Bastrop
+        County states that most county voters chose John C. Frémont in 1856. Frémont was not on the
+        ballot in Texas and received no votes in the state; the 1856 race here was Buchanan against
+        Fillmore. An earlier version of this page inherited the error. It has been removed, and the
+        <a href="#ch2">correction appears in Chapter Two</a> rather than being buried here.</li>
+      <li id="note-2"><b>On 1982.</b> The Handbook passage lists Democratic county majorities in
+        &ldquo;1976, 1982, and 1988.&rdquo; 1982 is not a presidential year. This page reports only
+        1976 and 1988 as presidential results and does not guess at what was meant.</li>
+      <li id="note-3"><b>On the missing years.</b> 1980, 2008 and 2012 are shown as gaps in the
+        record, not estimated. County-level returns for those years could not be verified from an
+        authoritative source. Widely-syndicated tables that appear to give Bastrop County results
+        for these years were found to reproduce <b>Texas statewide</b> figures instead, and were
+        rejected. 2016 is likewise not documented on this page.</li>
+      <li id="note-4"><b>On derived numbers.</b> Margins and percentage changes computed by us are
+        labelled <span class="derived">derived</span>. Vote totals and percentages are quoted from
+        sources, never calculated.</li>
+      <li id="note-5"><b>On sources not directly reachable.</b> Several primary and institutional
+        sites could not be retrieved directly from the environment in which this page was built;
+        their content was recovered through search. Claims resting on a single unreachable source
+        are the least certain on the page.</li>
+      <li id="note-6"><b>On 1872.</b> Horace Greeley carried most of the county's votes that year
+        as the fusion nominee of the Democratic Party and the Liberal Republicans. He is counted
+        here on the Democratic side of the ledger, as the Handbook of Texas counts him.</li>
+      <li id="note-7"><b>Independence.</b> This page is an independent history project. It is not
+        published by, affiliated with, or endorsed by the Bastrop County Republican Party or any
+        candidate or committee.</li>
     </ol>
-  </div>
+  </aside>
+
+  <ol class="sources wide" data-reveal>
+    <li id="src-1">
+      <a href="https://www.tshaonline.org/handbook/entries/bastrop-county" rel="noopener">Handbook of Texas Online — <i>Bastrop County</i></a>
+      <span>Colonization and the Little Colony; the 1860 Bell result; Greeley in 1872; the 1876–1968 Democratic run and the 1896 McKinley plurality; Nixon 1972 and the 1976/1988 Democratic majorities; Reagan 1984; Clinton's 1992 and 1996 pluralities; Bush in 2000 and 2004; local-office competitiveness. <b>This entry also contains the 1856 Frémont error described in <a href="#note-1">note 1</a>.</b></span>
+      <span class="cited">Cited in Ch. I, II, IV, V, VI</span>
+    </li>
+    <li id="src-2">
+      <a href="https://www.tshaonline.org/handbook/entries/african-americans-and-politics" rel="noopener">Handbook of Texas Online — <i>African Americans and Politics</i></a>
+      <span>Freedmen's Bureau registration drives, 1867–68; Black Texans voting in statewide elections from 1869.</span>
+      <span class="cited">Cited in Ch. III</span>
+    </li>
+    <li id="src-3">
+      <a href="https://www.tshaonline.org/handbook/entries/thompson-cal" rel="noopener">Handbook of Texas Online — <i>Thompson, Cal</i></a>
+      <span>Born enslaved about 1828 in Tennessee; the 1869 land purchase at Cedar Creek at the suggestion of Marshall Trigg; 500 acres; the newspaper description; the killing of April 21, 1890 and Governor Ross's $250 reward.</span>
+      <span class="cited">Cited in Ch. III</span>
+    </li>
+    <li id="src-4">
+      <a href="https://www.tshaonline.org/handbook/entries/hamilton-jeremiah-j" rel="noopener">Handbook of Texas Online — <i>Hamilton, Jeremiah J.</i></a>
+      <span>Born enslaved in Tennessee, July 1838; brought to Texas 1847; literate despite the law; the Bastrop school; the 1867 voter-registration board.</span>
+      <span class="cited">Cited in Ch. III</span>
+    </li>
+    <li id="src-5">
+      <a href="https://www.tshaonline.org/handbook/entries/cedar-creek-tx-bastrop-county" rel="noopener">Handbook of Texas Online — <i>Cedar Creek, Bastrop County</i></a>
+      <span>The May 1888 election of Orange Wicks as justice of the peace and Ike Wilson as constable; the June 13, 1889 shootout and its aftermath; the fall in population from 600 in 1884 to 250 in 1896.</span>
+      <span class="cited">Cited in Ch. III</span>
+    </li>
+    <li id="src-6">
+      <a href="https://lrl.texas.gov/legeLeaders/members/memberDisplay.cfm?memberID=4440" rel="noopener">Texas Legislative Reference Library — Jeremiah J. Hamilton</a>
+      <span>Service in the Texas House, Twelfth Legislature, February 9, 1870 – January 14, 1873, representing Bastrop and Fayette counties.</span>
+      <span class="cited">Cited in Ch. III</span>
+    </li>
+    <li id="src-7">
+      <a href="https://communityimpact.com/austin/bastrop-cedar-creek/government/2025/09/05/bastrop-historical-marker-to-honor-former-slave-jeremiah-j-hamilton/" rel="noopener">Community Impact, September 5, 2025 — Bastrop historical marker for Jeremiah J. Hamilton</a>
+      <span>Corroborating biography and the county's public commemoration.</span>
+      <span class="cited">Cited in Ch. III</span>
+    </li>
+    <li id="src-8">
+      <a href="https://www.texasalmanac.com/drupal-backup/images/Secession3.pdf" rel="noopener">Texas Almanac — secession referendum returns</a> ·
+      <a href="https://scholarworks.sfasu.edu/ethj/vol11/iss2/6/" rel="noopener"><i>East Texas Historical Journal</i> 11:2</a>
+      <span>The February 23, 1861 referendum: Bastrop County 352 against, 335 for; about 18 of 122 reporting counties voted against; the statewide result was roughly 76% in favour.</span>
+      <span class="cited">Cited in Ch. II</span>
+    </li>
+    <li id="src-9">
+      <a href="https://www.tsl.texas.gov/treasures/giants/aalege" rel="noopener">Texas State Library and Archives — &ldquo;Forever Free&rdquo;</a>
+      <span>Fifty-two African American men served Texas either in the legislature or as delegates to a constitutional convention; forty-one served in the legislature between 1868 and 1900.</span>
+      <span class="cited">Cited in Ch. III</span>
+    </li>
+    <li id="src-10">
+      <a href="https://law.justia.com/cases/federal/district-courts/FSupp/252/234/1410599/" rel="noopener"><i>United States v. Texas</i>, 252 F. Supp. 234 (W.D. Tex. 1966)</a>
+      <span>The federal court's finding that the poll tax's primary purpose &ldquo;was the desire to disenfranchise the Negro and the poor white supporters of the Populist Party.&rdquo;</span>
+      <span class="cited">Cited in Ch. IV</span>
+    </li>
+    <li id="src-11">
+      <a href="https://www.zipdatamaps.com/election-atlas/county/tx/bastrop-county/map-of-2020-presidential-election-results-by-voting-precinct" rel="noopener">Election Atlas — Bastrop County precinct results, 2020</a>
+      <span>Trump 56.0% (20,516) / Biden 42.2% (15,110); 17 of 22 precincts majority Republican. Single source for the precinct split; moderate-to-high confidence.</span>
+      <span class="cited">Cited in Ch. VII, Plate</span>
+    </li>
+    <li id="src-12">
+      <a href="https://www.kvue.com/article/news/politics/vote-texas/presidential-race-central-texas-counties/269-0d0ef374-5e26-4120-becf-eec6e72345d1" rel="noopener">KVUE — how Central Texas counties voted in 2024</a>
+      <span>Trump 58.6% (23,276) / Harris 40.1% (15,941), 100% of precincts reporting.</span>
+      <span class="cited">Cited in Ch. VII, Plate</span>
+    </li>
+    <li id="src-13">
+      <a href="https://ballotpedia.org/Bastrop_County,_Texas,_elections,_2024" rel="noopener">Ballotpedia — Bastrop County elections, 2024</a>
+      <span>Republican candidates won every race in the county's 2024 general election.</span>
+      <span class="cited">Cited in Ch. VII</span>
+    </li>
+    <li id="src-14">
+      <a href="https://usafacts.org/answers/is-the-population-growing-or-shrinking/county/bastrop-county-tx/" rel="noopener">USAFacts</a> ·
+      <a href="https://communityimpact.com/austin/bastrop-cedar-creek/government/2025/01/03/new-data-shows-bastrop-countys-growth-in-population-annual-household-income/" rel="noopener">Community Impact</a> ·
+      <a href="https://www.kxan.com/news/texas/these-were-the-fastest-growing-counties-in-texas-in-2023-according-to-new-census-bureau-estimates/" rel="noopener">KXAN, 2023 census estimates</a> ·
+      <a href="https://www.kxan.com/news/texas/maps-which-texas-counties-are-growing-the-fastest/" rel="noopener">KXAN, in-migration</a> ·
+      <a href="https://worldpopulationreview.com/us-counties/texas/bastrop-county" rel="noopener">World Population Review</a>
+      <span>Population 84,522 (2019) → 102,370 (2023), +21.1%, ACS five-year estimates; +13.9% between 2020 and 2023 and 13th fastest-growing county in Texas for that window; 97.25% of growth from in-migration, a <b>2020–21</b> figure; a 2025 estimate near 119,000.</span>
+      <span class="cited">Cited in Ch. VII</span>
+    </li>
+    <li id="src-15">
+      <a href="https://trerc.tamu.edu/article/reflecting-on-bastrop" rel="noopener">Texas Real Estate Research Center, Texas A&amp;M — reflecting on Bastrop</a>
+      <span>459 homes rebuilt by 2013 — 46% of the 2011 stock and 75% of all rebuilding from 2012 to 2021; 747 destroyed homes belonged to families with no resources or inadequate insurance.</span>
+      <span class="cited">Cited in the Fire interlude</span>
+    </li>
+    <li id="src-16">
+      <a href="https://www.doi.gov/recovery/recovery-in-action/bastrop" rel="noopener">U.S. Department of the Interior — Bastrop recovery</a> ·
+      <a href="https://tpwd.texas.gov/state-parks/bastrop/life-after-wildfire" rel="noopener">Texas Parks and Wildlife — life after wildfire</a>
+      <span>The Bastrop County Complex Fire of September 4, 2011: 55 days, roughly 1,600–1,700 homes, two deaths, about $325M in losses, about 95% of Bastrop State Park and 32,400 acres of the Lost Pines; more than 4 million pines replanted from January 2013.</span>
+      <span class="cited">Cited in the Fire interlude</span>
+    </li>
+    <li id="src-17">
+      <a href="https://ballotpedia.org/Paul_Pape" rel="noopener">Ballotpedia — Paul Pape</a> ·
+      <a href="https://spectrumlocalnews.com/tx/austin/politics/2016/05/25/unofficial-results--maurice-cook-wins-republican-sheriff-nomination" rel="noopener">Spectrum News — 2016 sheriff runoff</a> ·
+      <a href="https://www.kvue.com/article/news/politics/elections/cook-defeats-renck-in-bastrop-sheriff-race/269-349629711" rel="noopener">KVUE — Cook defeats Renck</a> ·
+      <a href="https://www.legistorm.com/person/bio/498788/Clara_Peacock_Beckett.html" rel="noopener">LegiStorm — Clara Beckett</a> ·
+      <a href="https://www.legistorm.com/person/bio/498786/Gregory_Klaus.html" rel="noopener">LegiStorm — Gregory Klaus</a> ·
+      <a href="http://www.main.org/aspa/mcdonald.htm" rel="noopener">Ronnie McDonald biography</a>
+      <span>Modern county officeholders: Beckett's 2002 election; McDonald's 1998 election at 27 and his 2012 decision not to seek re-election; Pape's 2012 special election and re-elections; Cook's four-vote runoff and 58% general; Klaus's 2022 runoff and January 2023 swearing-in.</span>
+      <span class="cited">Cited in Ch. VIII</span>
+    </li>
+    <li id="src-18">
+      <a href="https://www.bastropctygop.com/" rel="noopener">Bastrop County Republican Party</a> ·
+      <a href="https://www.bastropctygop.com/county-chair/" rel="noopener">county chair page</a> ·
+      <a href="https://www.fec.gov/data/committee/C00761148/" rel="noopener">FEC committee C00761148</a>
+      <span>Party structure: the County Executive Committee of the county chair and precinct chairs; Curtis Courtney as chair since June 2022, a precinct chair from 2015; the public calendar, precinct directory and newsletter.</span>
+      <span class="cited">Cited in Ch. VIII</span>
+    </li>
+  </ol>
 </section>
 
 </main>
 
-<footer class="site-footer">
-  <div class="wrap footer-inner">
-    <p><b>Red Clay &amp; Lost Pines</b> — an illustrated history of the Bastrop County Republicans.</p>
-    <p class="muted">Built as a static site. <a href="#top">Back to the top ↑</a></p>
+<footer class="site-footer canvas">
+  <svg class="horizon horizon--footer" viewBox="0 0 1440 140" preserveAspectRatio="xMidYMax slice"
+       aria-hidden="true" focusable="false">
+    <path class="far" d="M0 96 L280 93 L560 97 L860 92 L1140 96 L1440 94 V140 H0 Z"/>
+    <path class="mid" d="M0 124 L340 121 L720 126 L1090 120 L1440 125 V140 H0 Z"/>
+    <g class="near">
+      <use href="#pine-sm" transform="translate(46,128) scale(1.3)"/>
+      <use href="#pine-sm" transform="translate(128,126) scale(0.8)"/>
+      <use href="#pine-sm" transform="translate(214,129) scale(1.5)"/>
+      <use href="#pine-sm" transform="translate(292,126) scale(0.7)"/>
+      <use href="#pine-sm" transform="translate(378,128) scale(1.2)"/>
+      <use href="#pine-sm" transform="translate(452,126) scale(0.9)"/>
+      <use href="#pine-sm" transform="translate(546,129) scale(1.45)"/>
+      <use href="#pine-sm" transform="translate(628,126) scale(0.75)"/>
+      <use href="#pine-sm" transform="translate(714,128) scale(1.15)"/>
+      <use href="#pine-sm" transform="translate(796,126) scale(0.85)"/>
+      <use href="#pine-sm" transform="translate(884,129) scale(1.35)"/>
+      <use href="#pine-sm" transform="translate(968,126) scale(0.72)"/>
+      <use href="#pine-sm" transform="translate(1054,128) scale(1.25)"/>
+      <use href="#pine-sm" transform="translate(1138,126) scale(0.88)"/>
+      <use href="#pine-sm" transform="translate(1226,129) scale(1.4)"/>
+      <use href="#pine-sm" transform="translate(1312,126) scale(0.78)"/>
+      <use href="#pine-sm" transform="translate(1396,128) scale(1.18)"/>
+    </g>
+  </svg>
+  <div class="footer-inner">
+    <p><b>Red Clay &amp; Lost Pines</b> — an independent history of the Republican Party in
+      Bastrop County, Texas.</p>
+    <p class="muted">
+      Not published by, affiliated with, or endorsed by the Bastrop County Republican Party or any
+      candidate or committee. A static page: no trackers, no fonts fetched, no third-party
+      requests. <a href="#top">Back to the top</a>
+    </p>
   </div>
 </footer>
 
