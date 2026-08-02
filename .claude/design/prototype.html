@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Red Clay &amp; Lost Pines — design prototype (hero + Chapter IV)</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230F1512'/%3E%3Crect x='9' y='7' width='2' height='19' fill='%23D9A441'/%3E%3Crect x='15' y='4' width='2' height='22' fill='%23D9A441'/%3E%3Crect x='21' y='9' width='2' height='17' fill='%23D9A441'/%3E%3C/svg%3E">
+<script>document.documentElement.className='js';</script>
+<style>
+/* ==========================================================================
+   PROTOTYPE — demonstrates the direction in .claude/design/ux-direction.md
+   Hero + Chapter IV only. Self-contained. No fetches. Works with JS disabled.
+   ========================================================================== */
+
+/* ---------------------------------------------------------------- TOKENS */
+:root {
+  /* surfaces */
+  --bg:#0F1512; --bg-alt:#141B17; --surface:#1A231F; --raised:#212B26;
+  /* lines */
+  --hair:#2C3833; --rule:#42524B; --axis:#64766E;
+  /* text */
+  --text:#F2F0EA; --text-soft:#CBD3CC; --text-dim:#9BA9A1;
+  /* interface accent — brass. NEVER a party colour. */
+  --brass:#D9A441; --brass-hi:#EFC97F; --link:#E0AC4D; --link-hover:#EFC97F; --focus:#F5C86A;
+  /* DATA ONLY */
+  --data-r:#F0A177; --data-r-deep:#B44E22;
+  --data-d:#4E7BAE; --data-d-deep:#365A85;
+  --data-neutral:#B9A98C;
+  --verified:#8FBF9A; --unverified:#B9A98C;
+  /* era tints */
+  --era-ground:#12160F; --era-rupture:#0F1512; --era-iron:#101619;
+  --era-turn:#131611;   --era-present:#141B17;
+  /* horizon */
+  --horizon-far:#18211C; --horizon-mid:#1E2A24; --horizon-near:#2C3A33;
+
+  /* type */
+  --font-display:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Charter,"Bitstream Charter","Sitka Text",Cambria,Georgia,"Times New Roman",serif;
+  --font-text:var(--font-display);
+  --font-ui:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --font-figure:var(--font-ui);
+
+  /* Bastrop Scale — 1.250 major third, base 19px */
+  --t--2:0.75rem;
+  --t--1:clamp(0.875rem,0.845rem + 0.124vw,0.9375rem);
+  --t-0: clamp(1.0625rem,1.002rem + 0.247vw,1.1875rem);
+  --t-1: clamp(1.3125rem,1.222rem + 0.370vw,1.5rem);
+  --t-2: clamp(1.5625rem,1.412rem + 0.617vw,1.875rem);
+  --t-3: clamp(1.875rem,1.664rem + 0.864vw,2.3125rem);
+  --t-4: clamp(2.25rem,1.949rem + 1.235vw,2.875rem);
+  --t-5: clamp(2.625rem,2.144rem + 1.975vw,3.625rem);
+  --t-6: clamp(3.125rem,2.463rem + 2.716vw,4.5rem);
+  --t-7: clamp(3.625rem,2.662rem + 3.951vw,5.625rem);
+
+  /* space — 8px base */
+  --sp-1:.25rem; --sp-2:.5rem; --sp-3:.75rem; --sp-4:1rem; --sp-5:1.5rem;
+  --sp-6:2rem; --sp-7:3rem; --sp-8:4rem; --sp-9:6rem; --sp-10:8rem;
+  --sp-11:10rem; --sp-12:12rem;
+
+  --radius-0:0; --radius-1:2px; --radius-2:4px;
+  --shadow-2:0 8px 24px -12px rgb(0 0 0 / .35);
+
+  /* motion */
+  --dur-1:120ms; --dur-2:200ms; --dur-3:320ms; --dur-4:520ms; --dur-5:900ms;
+  --ease-out:cubic-bezier(.22,1,.36,1);
+  --ease-in-out:cubic-bezier(.65,0,.35,1);
+  --ease-standard:cubic-bezier(.2,0,0,1);
+
+  /* grid */
+  --gutter:clamp(20px,5vw,48px);
+  --rail:0px;
+  /* NOTE: a bare min(66ch,100%) resolves 100% against the grid container, so the
+     gutters get ADDED and the page overflows sideways at narrow widths.
+     Subtract them here. Verified: scrollWidth === clientWidth at 320/390/768. */
+  --content:min(66ch, 100% - var(--gutter) * 2);
+}
+:root[data-theme="light"] {
+  --bg:#F7F4ED; --bg-alt:#F0EBE0; --surface:#FBF9F4; --raised:#FFFFFF;
+  --hair:#DED5C4; --rule:#B5A893; --axis:#827661;
+  --text:#1B211D; --text-soft:#3B453E; --text-dim:#5A6660;
+  --brass:#8A5B10; --brass-hi:#6E4809; --link:#8A5B10; --link-hover:#6E4809; --focus:#8A5B10;
+  --data-r:#B4471F; --data-r-deep:#8E3213;
+  --data-d:#1E3E60; --data-d-deep:#152C45;
+  --data-neutral:#6B5C42; --verified:#2F6B45; --unverified:#6B5C42;
+  --era-ground:#F7F3E7; --era-rupture:#F7F4ED; --era-iron:#F1F2F0;
+  --era-turn:#F8F4E9;   --era-present:#F0EBE0;
+  --horizon-far:#DFDBCB; --horizon-mid:#CBC7B3; --horizon-near:#A8A691;
+}
+
+/* ----------------------------------------------------------------- RESET */
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text-soft);
+  font-family:var(--font-text);font-size:var(--t-0);line-height:1.684;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img,svg{display:block;max-width:100%}
+h1,h2,h3,p,ol,ul,dl,figure,table{margin:0}
+a{color:var(--link);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;
+  transition:color var(--dur-1) var(--ease-standard),text-decoration-thickness var(--dur-1)}
+a:hover{color:var(--link-hover);text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--focus);outline-offset:3px;border-radius:var(--radius-1)}
+::selection{background:var(--brass);color:var(--bg)}
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--brass);color:var(--bg);
+  padding:var(--sp-3) var(--sp-4);font-family:var(--font-ui);font-weight:600;min-height:44px}
+.skip:focus{left:0}
+
+/* ------------------------------------------------------------ THE CANVAS */
+.canvas{
+  display:grid;
+  grid-template-columns:
+    [full-start] minmax(var(--gutter),1fr)
+    [rail-start] var(--rail)
+    [rail-end wide-start] minmax(0,10rem)
+    [text-start] var(--content) [text-end]
+    minmax(0,10rem) [wide-end]
+    minmax(var(--gutter),1fr) [full-end];
+}
+.canvas > *{grid-column:text}
+.canvas > .wide{grid-column:wide}
+.canvas > .full{grid-column:full}
+.canvas > .railcol{grid-column:rail}
+
+section{padding-block:clamp(var(--sp-9),12vw,var(--sp-12));position:relative}
+[data-era="ground"] {background:var(--era-ground)}
+[data-era="rupture"]{background:var(--era-rupture)}
+[data-era="iron"]   {background:var(--era-iron)}
+[data-era="turn"]   {background:var(--era-turn)}
+[data-era="present"]{background:var(--era-present)}
+
+/* --------------------------------------------------------- PINE HORIZON */
+.horizon{grid-column:full;width:100%;height:300px;pointer-events:none;user-select:none}
+.horizon--divider{height:72px;margin-top:var(--sp-9);opacity:.85}
+.horizon .far {fill:var(--horizon-far)}
+.horizon .mid {fill:var(--horizon-mid)}
+.horizon .near{fill:var(--horizon-near)}
+.horizon .river{fill:var(--data-d-deep);opacity:.10}
+:root[data-theme="light"] .horizon .river{fill:var(--axis);opacity:.14}
+
+.townmarks{grid-column:wide;display:flex;flex-wrap:wrap;gap:var(--sp-2) var(--sp-5);
+  font-family:var(--font-ui);font-size:var(--t--2);font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--text-dim);margin-top:var(--sp-4)}
+.townmarks b{color:var(--brass);font-weight:600}
+
+/* ------------------------------------------------------------- ERA RAIL */
+.rail{display:none}
+@media (min-width:1120px){
+  :root{--rail:200px}
+  .rail{
+    display:block;position:fixed;top:0;bottom:0;
+    left:max(var(--gutter),calc((100vw - 1140px)/2));
+    width:200px;padding-block:var(--sp-8);z-index:40;
+    font-family:var(--font-ui);
+    /* the rail never scrolls the page: it is a fixed time axis */
+    overflow:hidden;
+  }
+  .rail__spine{position:absolute;left:0;top:var(--sp-8);bottom:var(--sp-8);width:1px;background:var(--axis)}
+  .rail__fill{position:absolute;left:0;top:var(--sp-8);width:2px;height:calc(100% - var(--sp-8)*2);
+    background:var(--brass);transform-origin:top;transform:scaleY(0);
+    transition:transform var(--dur-2) linear}
+  /* Entries are sized by the LENGTH OF THEIR ERA, not evenly. The 94-year
+     Long Century therefore occupies visibly more rail than 1856–1860 does.
+     This is what makes the rail a time axis instead of a progress bar. */
+  .rail ol{list-style:none;margin:0;padding:0;position:relative;height:100%;
+    display:flex;flex-direction:column}
+  .rail li{padding-left:var(--sp-4);position:relative;flex:var(--span,1) 1 0;min-height:3.5rem}
+  .rail a{display:block;padding-block:var(--sp-2);text-decoration:none;
+    font-size:var(--t--2);font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--text-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+    transition:color var(--dur-1) var(--ease-standard)}
+  .rail a:hover{color:var(--text)}
+  .rail a[aria-current]{color:var(--text)}
+  .rail a[aria-current]::before{content:"";position:absolute;left:0;top:var(--sp-2);bottom:var(--sp-2);
+    width:2px;background:var(--brass)}
+  .rail .yr{display:block;font-size:11px;font-weight:400;letter-spacing:.06em;
+    font-variant-numeric:tabular-nums;color:var(--text-dim);opacity:.75;text-transform:none}
+}
+
+/* ------------------------------------------------------------ TOP CHIP */
+.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:var(--sp-3);
+  min-height:56px;padding-inline:var(--gutter);
+  background:color-mix(in srgb,var(--bg) 92%,transparent);
+  backdrop-filter:blur(12px);border-bottom:1px solid var(--hair);
+  font-family:var(--font-ui)}
+.wordmark{font-family:var(--font-display);font-size:var(--t--1);color:var(--text);
+  text-decoration:none;white-space:nowrap;
+  /* flex items default to min-width:auto and refuse to shrink — that is what
+     pushed the bar past the viewport at 320px. */
+  min-width:0;overflow:hidden;text-overflow:ellipsis}
+.wordmark b{font-weight:600}
+.chip{font-size:var(--t--2);color:var(--text-dim);letter-spacing:.06em;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1 1 auto;min-width:0}
+@media (max-width:479px){.chip{display:none}}
+@media (min-width:1120px){.topbar{display:none}}
+
+details.toc{position:relative;flex:none}
+details.toc > summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:var(--sp-2);
+  min-height:44px;padding-inline:var(--sp-3);font-size:var(--t--2);font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--text);
+  border:1px solid var(--hair);border-radius:var(--radius-1)}
+details.toc > summary::-webkit-details-marker{display:none}
+details.toc > summary::after{content:"";width:7px;height:7px;border-right:1.5px solid currentColor;
+  border-bottom:1.5px solid currentColor;transform:rotate(45deg) translate(-2px,-2px);
+  transition:transform var(--dur-2) var(--ease-standard)}
+details.toc[open] > summary::after{transform:rotate(-135deg) translate(-2px,-2px)}
+details.toc > div{position:absolute;right:0;top:calc(100% + 8px);width:min(320px,calc(100vw - 2*var(--gutter)));
+  background:var(--surface);border:1px solid var(--hair);border-radius:var(--radius-2);
+  box-shadow:var(--shadow-2);padding:var(--sp-2)}
+details.toc ol{list-style:none;margin:0;padding:0}
+details.toc a{display:flex;justify-content:space-between;gap:var(--sp-4);align-items:baseline;
+  min-height:48px;padding:var(--sp-3);text-decoration:none;color:var(--text);
+  font-size:var(--t--1);border-bottom:1px solid var(--hair)}
+details.toc li:last-child a{border-bottom:0}
+details.toc a span{color:var(--text-dim);font-family:var(--font-figure);
+  font-variant-numeric:tabular-nums;font-size:var(--t--2);white-space:nowrap}
+
+.toggle{flex:none;width:44px;height:44px;display:grid;place-items:center;cursor:pointer;
+  background:var(--surface);border:1px solid var(--hair);border-radius:var(--radius-1);
+  transition:background var(--dur-1) var(--ease-standard)}
+.toggle:hover{background:var(--raised)}
+.toggle i{display:block;width:16px;height:16px;border:1px solid var(--axis);border-radius:1px;
+  background:linear-gradient(90deg,var(--text) 0 50%,transparent 50% 100%)}
+
+/* ----------------------------------------------------------------- HERO */
+.hero{min-height:100svh;display:grid;align-content:center;
+  padding-block:var(--sp-10) 300px;position:relative;overflow:hidden;
+  background:var(--era-ground)}
+.hero .horizon{position:absolute;inset:auto 0 -1px 0}
+.eyebrow{font-family:var(--font-ui);font-size:var(--t--2);font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--brass);margin-bottom:var(--sp-5)}
+.hero h1{font-family:var(--font-display);font-weight:400;font-size:var(--t-7);
+  line-height:1.022;letter-spacing:-.024em;color:var(--text);text-wrap:balance;margin:0}
+.hero h1 .amp{display:block;font-size:.4em;color:var(--brass);font-style:italic;
+  line-height:1.2;margin-left:.5em}
+.dek{font-size:var(--t-1);line-height:1.333;color:var(--text-soft);max-width:52ch;
+  margin-top:var(--sp-6);text-wrap:pretty}
+.dek em{font-style:italic;color:var(--text)}
+
+/* the Spine — hero time axis, built from a table */
+.spine{margin-top:var(--sp-9);position:relative;z-index:2}
+.spine svg{width:100%;height:auto}
+.spine a{text-decoration:none}
+.spine .ax{stroke:var(--axis);stroke-width:1}
+.spine .mk{fill:var(--data-r);stroke:var(--bg);stroke-width:1.5}
+.spine a:hover .mk,.spine a:focus-visible .mk{fill:var(--data-r-deep)}
+.spine .lbl{fill:var(--text);font-family:var(--font-ui);font-size:12px;font-weight:600;letter-spacing:.06em}
+.spine .sub{fill:var(--text-dim);font-family:var(--font-ui);font-size:11px}
+.spine .yr {fill:var(--text-dim);font-family:var(--font-ui);font-size:12px;font-variant-numeric:tabular-nums}
+
+/* ----------------------------------------------------------- ERA PLATE */
+.era-plate{border-top:1px solid var(--axis);padding-top:var(--sp-6);margin-bottom:var(--sp-8);position:relative}
+.era-plate .num{display:block;font-family:var(--font-ui);font-size:var(--t--2);font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--brass);margin-bottom:var(--sp-4)}
+.era-plate h2{font-family:var(--font-display);font-weight:400;font-size:var(--t-5);
+  line-height:1.069;letter-spacing:-.018em;color:var(--text);text-wrap:balance}
+.era-plate .range{font-family:var(--font-figure);font-size:var(--t-1);font-variant-numeric:tabular-nums;
+  color:var(--text-dim);margin-top:var(--sp-3)}
+.era-plate .dek{font-size:var(--t-1);color:var(--text-soft);max-width:52ch;margin-top:var(--sp-4)}
+@media (min-width:1120px){
+  .era-plate::before{content:"";position:absolute;left:0;top:-2px;width:48px;height:4px;background:var(--brass)}
+}
+
+/* --------------------------------------------------------------- PROSE */
+.prose p{max-width:66ch;margin-bottom:var(--sp-5);text-wrap:pretty}
+.prose p:last-child{margin-bottom:0}
+.prose strong{color:var(--text);font-weight:600}
+@media (min-width:900px){
+  .prose > p:first-of-type::first-letter{
+    initial-letter:3;-webkit-initial-letter:3;
+    font-family:var(--font-display);color:var(--brass);margin-right:.08em;font-weight:400}
+}
+
+/* ---------------------------------------------------------- FIGURE/CHART */
+figure{margin:0}
+.fig{margin-block:var(--sp-8)}
+.fig__title{font-family:var(--font-ui);font-size:var(--t--2);font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--text-dim);margin-bottom:var(--sp-4)}
+.fig__claim{font-family:var(--font-display);font-size:var(--t-1);color:var(--text);
+  max-width:44ch;margin-bottom:var(--sp-5)}
+figcaption{font-family:var(--font-ui);font-size:var(--t--1);color:var(--text-dim);
+  max-width:60ch;margin-top:var(--sp-3)}
+.source-tag{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--sp-2) var(--sp-3);
+  font-family:var(--font-ui);font-size:var(--t--1);color:var(--text-dim);margin-top:var(--sp-2)}
+.source-tag .badge{border:1px solid currentColor;border-radius:var(--radius-1);
+  padding:2px 6px;font-size:var(--t--2);font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.source-tag .badge[data-state="verified"]{color:var(--verified)}
+.source-tag .badge[data-state="reported"]{color:var(--unverified)}
+
+/* the ledger table — the no-JS source of truth for every chart */
+.ledger{width:100%;border-collapse:collapse;font-family:var(--font-figure);font-size:var(--t--1);
+  font-variant-numeric:tabular-nums}
+.ledger caption{text-align:left;font-family:var(--font-ui);font-size:var(--t--1);color:var(--text-dim);
+  padding-bottom:var(--sp-3)}
+.ledger th,.ledger td{text-align:left;padding:var(--sp-2) var(--sp-4) var(--sp-2) 0;
+  border-bottom:1px solid var(--hair);color:var(--text-soft)}
+.ledger thead th{border-bottom:1px solid var(--axis);color:var(--text-dim);
+  font-family:var(--font-ui);font-size:var(--t--2);font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.ledger tbody th{color:var(--text);font-weight:400}
+.ledger .swatch{display:inline-block;width:3px;height:1em;vertical-align:-.15em;margin-right:.55em}
+.ledger .swatch[data-party="R"]{background:var(--data-r)}
+.ledger .swatch[data-party="D"]{background:var(--data-d)}
+.scroller{overflow-x:auto;overscroll-behavior-x:contain}
+/* once JS has drawn the SVG, the table becomes the accessible description */
+.js .chart--upgraded .ledger-wrap{display:none}
+.chart__frame{display:none}
+.js .chart--upgraded .chart__frame{display:block}
+/* SVG label type is in user units, so a chart squeezed below ~560px renders
+   4px labels. Give charts a floor and let the frame scroll instead. */
+.chart__svg{min-width:560px;width:100%}
+
+/* RunStrip marks */
+.runstrip .bar-d{fill:var(--data-d)}
+.runstrip .bar-r{fill:var(--data-r)}
+.runstrip .hatch{fill:url(#hatchD)}
+.runstrip .base{stroke:var(--axis);stroke-width:1.5}
+.runstrip .tick{fill:var(--text-dim);font-family:var(--font-ui);font-size:12px;font-variant-numeric:tabular-nums}
+.runstrip .call{fill:var(--text);font-family:var(--font-ui);font-size:12px;font-weight:600}
+.runstrip .lead{stroke:var(--brass);stroke-width:1}
+.runstrip g[tabindex]:focus-visible rect{stroke:var(--focus);stroke-width:2}
+
+/* -------------------------------------------------------------- REVEAL */
+.js [data-reveal]{opacity:0;transform:translateY(12px);
+  transition:opacity var(--dur-4) var(--ease-out),transform var(--dur-4) var(--ease-out)}
+.js [data-reveal].in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:1ms !important;animation-iteration-count:1 !important;
+    transition-duration:1ms !important;scroll-behavior:auto !important}
+  [data-reveal]{opacity:1 !important;transform:none !important}
+}
+
+/* --------------------------------------------------------------- PRINT */
+@media print{
+  .chart__frame{display:none !important}
+  :root{--bg:#fff;--bg-alt:#fff;--surface:#fff;--text:#000;--text-soft:#222;--text-dim:#444;
+        --hair:#bbb;--axis:#555;--brass:#6E4809}
+  .rail,.topbar,.horizon,.toggle,.skip{display:none !important}
+  .chart__svg{display:none !important}
+  .chart--upgraded .ledger-wrap{display:block !important}
+  section{padding-block:var(--sp-6)}
+  figure,.era-plate{break-inside:avoid}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:.8em;color:#444}
+}
+
+/* ------------------------------------------------------------- NOTE BAR */
+.protonote{font-family:var(--font-ui);font-size:var(--t--1);color:var(--text-dim);
+  padding:var(--sp-3) var(--gutter);border-bottom:1px solid var(--hair);background:var(--surface)}
+.protonote b{color:var(--text)}
+</style>
+</head>
+<body>
+
+<a class="skip" href="#ch4">Skip to the story</a>
+
+<p class="protonote"><b>Design prototype.</b> Hero + Chapter IV only, demonstrating tokens, the era
+rail, the pine horizon, the era plate, and the RunStrip chart. Disable JavaScript to verify the
+baseline. Not the production page.</p>
+
+<!-- ============================ ERA RAIL (>=1120px) ==================== -->
+<nav class="rail" aria-label="Chapters">
+  <div class="rail__spine" aria-hidden="true"></div>
+  <div class="rail__fill" id="railFill" aria-hidden="true"></div>
+  <!-- --span = years the era covers -->
+  <ol>
+    <li style="--span:29"><a href="#top"><span class="yr">1827</span>I · Little Colony</a></li>
+    <li style="--span:11"><a href="#ch2"><span class="yr">1856</span>II · A County Votes</a></li>
+    <li style="--span:7"><a href="#ch3"><span class="yr">1867</span>III · Party of Lincoln</a></li>
+    <li style="--span:98"><a href="#ch4"><span class="yr">1874</span>IV · Long Century</a></li>
+    <li style="--span:28"><a href="#ch5"><span class="yr">1972</span>V · The Turn</a></li>
+    <li style="--span:24"><a href="#ch6"><span class="yr">2000</span>VI · Bush Country</a></li>
+    <li style="--span:10"><a href="#ch7"><span class="yr">2024</span>VII · Today</a></li>
+    <li style="--span:6"><a href="#src"><span class="yr">&nbsp;</span>Sources</a></li>
+  </ol>
+</nav>
+
+<!-- ============================ TOP CHIP (<1120px) ===================== -->
+<header class="topbar">
+  <a class="wordmark" href="#top"><b>Red Clay</b> &amp; Lost Pines</a>
+  <span class="chip" id="chip">An independent history</span>
+  <details class="toc">
+    <summary>Contents</summary>
+    <div>
+      <ol>
+        <li><a href="#top">I · The Little Colony<span>1827–1837</span></a></li>
+        <li><a href="#ch2">II · A County Votes<span>1856–1860</span></a></li>
+        <li><a href="#ch3">III · Party of Lincoln<span>1867–1888</span></a></li>
+        <li><a href="#ch4">IV · The Long Century<span>1874–1968</span></a></li>
+        <li><a href="#ch5">V · The Turn<span>1972</span></a></li>
+        <li><a href="#ch6">VI · Bush Country<span>2000–2004</span></a></li>
+        <li><a href="#ch7">VII · Today<span>now</span></a></li>
+        <li><a href="#src">Sources &amp; Notes<span></span></a></li>
+      </ol>
+    </div>
+  </details>
+  <button class="toggle" id="themeToggle" type="button" aria-pressed="false"
+          aria-label="Switch to parchment theme"><i aria-hidden="true"></i></button>
+</header>
+
+<!-- ================================= HERO ============================== -->
+<section class="hero canvas" id="top">
+
+  <!-- PineHorizon: flat prairie horizon, Colorado River bend, loblolly colonnade.
+       Vertical trunks with an open, irregular canopy — not a mountain range, and
+       not a triangular Christmas-tree conifer. Decorative; aria-hidden. -->
+  <svg class="horizon" viewBox="0 0 1440 300" preserveAspectRatio="xMidYMax slice"
+       aria-hidden="true" focusable="false">
+    <defs>
+      <!-- one loblolly, drawn from the base of the trunk upward -->
+      <g id="pine">
+        <rect x="-1.8" y="-124" width="3.6" height="124"/>
+        <path d="M0-178c2 6 5 9 8 12-2 0-4-1-5-1 4 5 8 8 12 11-3 0-6-1-8-2 5 6 10 10 15 14
+                 -5 0-10-2-14-4 4 5 8 9 12 12-6-1-11-3-15-6 3 5 6 8 9 11-5-2-9-5-13-8v13h-3
+                 v-13c-4 3-8 6-13 8 3-3 6-6 9-11-4 3-9 5-15 6 4-3 8-7 12-12-4 2-9 4-14 4
+                 5-4 10-8 15-14-2 1-5 2-8 2 4-3 8-6 12-11-1 0-3 1-5 1 3-3 6-6 8-12z"/>
+      </g>
+    </defs>
+
+    <!-- far horizon: near-flat, under 6px of deviation across 1440px. Bastrop is flat. -->
+    <path class="far" d="M0 196 L240 193 L520 197 L800 192 L1080 196 L1440 194 V300 H0 Z"/>
+
+    <!-- the Colorado River bend -->
+    <path class="river" d="M0 232 C260 218 470 248 720 236 C980 224 1200 250 1440 238
+                           L1440 254 C1200 266 980 240 720 252 C470 264 260 234 0 248 Z"/>
+
+    <!-- the ground the pines stand on -->
+    <path class="mid" d="M0 254 L300 251 L640 256 L980 250 L1440 255 V300 H0 Z"/>
+
+    <!-- the colonnade. x positions are hand-authored and irregular: even spacing
+         reads as a fence, not a forest. -->
+    <g class="near">
+      <use href="#pine" transform="translate(28,258) scale(1.05)"/>
+      <use href="#pine" transform="translate(72,256) scale(0.72)"/>
+      <use href="#pine" transform="translate(119,259) scale(1.18)"/>
+      <use href="#pine" transform="translate(154,256) scale(0.62)"/>
+      <use href="#pine" transform="translate(204,258) scale(0.94)"/>
+      <use href="#pine" transform="translate(231,255) scale(0.55)"/>
+      <use href="#pine" transform="translate(278,260) scale(1.24)"/>
+      <use href="#pine" transform="translate(320,256) scale(0.68)"/>
+      <use href="#pine" transform="translate(364,258) scale(0.88)"/>
+      <use href="#pine" transform="translate(394,255) scale(0.50)"/>
+      <use href="#pine" transform="translate(443,259) scale(1.10)"/>
+      <use href="#pine" transform="translate(485,256) scale(0.60)"/>
+      <use href="#pine" transform="translate(527,257) scale(0.82)"/>
+      <use href="#pine" transform="translate(574,258) scale(0.99)"/>
+      <use href="#pine" transform="translate(607,255) scale(0.52)"/>
+      <use href="#pine" transform="translate(659,260) scale(1.20)"/>
+      <use href="#pine" transform="translate(701,256) scale(0.70)"/>
+      <use href="#pine" transform="translate(745,258) scale(0.90)"/>
+      <use href="#pine" transform="translate(792,255) scale(0.58)"/>
+      <use href="#pine" transform="translate(836,259) scale(1.13)"/>
+      <use href="#pine" transform="translate(877,256) scale(0.66)"/>
+      <use href="#pine" transform="translate(921,258) scale(0.96)"/>
+      <use href="#pine" transform="translate(964,255) scale(0.48)"/>
+      <use href="#pine" transform="translate(1011,259) scale(1.07)"/>
+      <use href="#pine" transform="translate(1055,256) scale(0.64)"/>
+      <use href="#pine" transform="translate(1099,257) scale(0.86)"/>
+      <use href="#pine" transform="translate(1144,260) scale(1.16)"/>
+      <use href="#pine" transform="translate(1189,255) scale(0.56)"/>
+      <use href="#pine" transform="translate(1231,258) scale(0.92)"/>
+      <use href="#pine" transform="translate(1277,256) scale(0.74)"/>
+      <use href="#pine" transform="translate(1322,259) scale(1.09)"/>
+      <use href="#pine" transform="translate(1371,255) scale(0.60)"/>
+      <use href="#pine" transform="translate(1411,257) scale(0.84)"/>
+    </g>
+  </svg>
+
+  <p class="eyebrow" data-reveal>Bastrop County · Texas · An independent history</p>
+
+  <h1 data-reveal>Red Clay<span class="amp">&amp;</span>Lost Pines</h1>
+
+  <p class="dek" data-reveal>
+    The story of the Republican Party in Bastrop County — a county that voted for the party's
+    <em>first</em> presidential nominee in 1856, spent nearly a century voting against it, and
+    then came all the way back.
+  </p>
+
+  <!-- THE SPINE — a real time axis, four marks, each an anchor.
+       Rendered from the table below; the table is the no-JS baseline. -->
+  <div class="spine wide" data-reveal>
+    <div class="ledger-wrap scroller">
+      <table class="ledger">
+        <caption>Republican moments in Bastrop County, 1856–2024</caption>
+        <thead><tr><th scope="col">Year</th><th scope="col">Candidate</th><th scope="col">Result</th></tr></thead>
+        <tbody id="spineData">
+          <tr data-year="1856" data-href="#ch2"><th scope="row">1856</th><td>John C. Frémont</td><td><span class="swatch" data-party="R"></span>Carried the county</td></tr>
+          <tr data-year="1896" data-href="#ch4"><th scope="row">1896</th><td>William McKinley</td><td><span class="swatch" data-party="R"></span>Plurality</td></tr>
+          <tr data-year="1972" data-href="#ch5"><th scope="row">1972</th><td>Richard Nixon</td><td><span class="swatch" data-party="R"></span>Carried the county</td></tr>
+          <tr data-year="2024" data-href="#ch7"><th scope="row">2024</th><td>Donald Trump</td><td><span class="swatch" data-party="R"></span>58.6% — every county race</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="chart__frame scroller">
+      <svg class="chart__svg" id="spineSvg" viewBox="0 0 1000 108" role="img"
+           aria-label="Time axis from 1856 to 2024 marking four Republican results in Bastrop County."></svg>
+    </div>
+  </div>
+</section>
+
+<main>
+
+<!-- ============================== CHAPTER IV =========================== -->
+<!-- Archetype D — Ledger: the chart is the argument, the prose is its caption. -->
+<section class="canvas" id="ch4" data-era="iron">
+
+  <header class="era-plate" data-reveal>
+    <span class="num">Chapter Four</span>
+    <h2>The Long Century</h2>
+    <p class="range"><time datetime="1874">1874</time>–<time datetime="1968">1968</time></p>
+    <p class="dek">Ninety-four years, twenty-five elections, one interruption.</p>
+  </header>
+
+  <!-- RunStrip: the chart comes FIRST. -->
+  <figure class="fig wide chart" id="runFig" data-reveal>
+    <p class="fig__title">Presidential elections carried in Bastrop County</p>
+    <p class="fig__claim">One interruption in twenty-five elections.</p>
+
+    <div class="ledger-wrap scroller">
+      <table class="ledger runstrip-data">
+        <caption>Party carrying Bastrop County in each presidential election, 1872–1968.</caption>
+        <thead><tr><th scope="col">Year</th><th scope="col">Carried by</th><th scope="col">Note</th></tr></thead>
+        <tbody id="runData">
+          <tr><th scope="row">1872</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td>Greeley, fusion nominee †</td></tr>
+          <tr><th scope="row">1876</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1880</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1884</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1888</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1892</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1896</th><td data-party="R"><span class="swatch" data-party="R"></span>Republican</td><td>McKinley — plurality</td></tr>
+          <tr><th scope="row">1900</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1904</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1908</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1912</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1916</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1920</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1924</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1928</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1932</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1936</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1940</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1944</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1948</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1952</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1956</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1960</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1964</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+          <tr><th scope="row">1968</th><td data-party="D"><span class="swatch" data-party="D"></span>Democratic</td><td></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="chart__frame scroller">
+      <svg class="chart__svg runstrip" id="runSvg" viewBox="0 0 1000 186" role="img"
+           aria-label="Twenty-five presidential elections from 1872 to 1968. Democrats carried Bastrop County in every one except 1896, when McKinley won a plurality."></svg>
+    </div>
+
+    <figcaption>
+      One bar per presidential election, on a year axis. Democratic bars carry a diagonal hatch as
+      well as colour, so the sequence reads in greyscale and in print.
+    </figcaption>
+    <p class="source-tag">
+      <span class="badge" data-state="verified">Verified</span>
+      <a href="#src">Handbook of Texas Online — <i>Bastrop County</i></a>
+      <span>† Greeley 1872 counted on the Democratic side, as the Handbook counts him.</span>
+    </p>
+  </figure>
+
+  <div class="prose" data-reveal>
+    <p>
+      Then the door closed. From <strong>1874 through 1968</strong>, Democratic presidential
+      candidates carried Bastrop County in virtually every single election — a run of nearly a
+      century.
+    </p>
+    <p>
+      There was exactly <strong>one</strong> interruption. In <strong>1896</strong>, Republican
+      <strong>William McKinley</strong> won a plurality of the county's votes. One year out of
+      twenty-five.
+    </p>
+    <p>
+      It is worth sitting with the length of that. A Republican voter in Bastrop County in 1930
+      could not remember a Republican carrying the county, and neither could their parents.
+    </p>
+  </div>
+
+  <!-- the same motif as an era divider: a distant treeline, 72px tall -->
+  <svg class="horizon horizon--divider" viewBox="0 0 1440 72" preserveAspectRatio="xMidYMax slice"
+       aria-hidden="true" focusable="false">
+    <defs>
+      <g id="pine-sm">
+        <rect x="-0.7" y="-44" width="1.4" height="44"/>
+        <path d="M0-64c1 3 2 4 3.5 5.5-1 0-1.8-.4-2.4-.6 1.8 2.4 3.6 3.8 5.4 5-1.4 0-2.6-.4-3.6-.9
+                 2.2 2.6 4.4 4.4 6.6 6.2-2.2 0-4.4-.9-6.2-1.8v5.6h-1.6v-5.6c-1.8.9-4 1.8-6.2 1.8
+                 2.2-1.8 4.4-3.6 6.6-6.2-1 .5-2.2.9-3.6.9 1.8-1.2 3.6-2.6 5.4-5-.6.2-1.4.6-2.4.6
+                 1.5-1.5 2.5-2.5 3.5-5.5z"/>
+      </g>
+    </defs>
+    <path class="mid" d="M0 66 L340 64 L720 67 L1090 64 L1440 66 V72 H0 Z"/>
+    <g class="near">
+      <use href="#pine-sm" transform="translate(38,67) scale(0.9)"/>
+      <use href="#pine-sm" transform="translate(96,66) scale(0.6)"/>
+      <use href="#pine-sm" transform="translate(163,67) scale(1.0)"/>
+      <use href="#pine-sm" transform="translate(214,66) scale(0.55)"/>
+      <use href="#pine-sm" transform="translate(281,67) scale(0.85)"/>
+      <use href="#pine-sm" transform="translate(337,66) scale(0.62)"/>
+      <use href="#pine-sm" transform="translate(404,67) scale(1.05)"/>
+      <use href="#pine-sm" transform="translate(462,66) scale(0.58)"/>
+      <use href="#pine-sm" transform="translate(529,67) scale(0.92)"/>
+      <use href="#pine-sm" transform="translate(588,66) scale(0.64)"/>
+      <use href="#pine-sm" transform="translate(651,67) scale(0.98)"/>
+      <use href="#pine-sm" transform="translate(714,66) scale(0.56)"/>
+      <use href="#pine-sm" transform="translate(779,67) scale(0.88)"/>
+      <use href="#pine-sm" transform="translate(841,66) scale(0.66)"/>
+      <use href="#pine-sm" transform="translate(906,67) scale(1.02)"/>
+      <use href="#pine-sm" transform="translate(968,66) scale(0.54)"/>
+      <use href="#pine-sm" transform="translate(1033,67) scale(0.9)"/>
+      <use href="#pine-sm" transform="translate(1097,66) scale(0.68)"/>
+      <use href="#pine-sm" transform="translate(1161,67) scale(0.96)"/>
+      <use href="#pine-sm" transform="translate(1226,66) scale(0.6)"/>
+      <use href="#pine-sm" transform="translate(1291,67) scale(0.86)"/>
+      <use href="#pine-sm" transform="translate(1358,66) scale(0.64)"/>
+      <use href="#pine-sm" transform="translate(1414,67) scale(0.94)"/>
+    </g>
+  </svg>
+
+  <p class="townmarks" aria-label="Towns of Bastrop County">
+    <span>Bastrop</span><span>Elgin</span><span>Smithville</span><span>Cedar Creek</span>
+    <span>McDade</span><span>Red Rock</span><span>Paige</span><span>Rosanky</span><span>String Prairie</span>
+  </p>
+</section>
+
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var root=document.documentElement;
+  var mqReduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+  var reduce=mqReduce.matches;
+  mqReduce.addEventListener&&mqReduce.addEventListener('change',function(e){reduce=e.matches;});
+
+  /* ---- theme ---- */
+  var toggle=document.getElementById('themeToggle');
+  try{var s=localStorage.getItem('rcl-theme'); if(s) root.setAttribute('data-theme',s);
+      else if(matchMedia('(prefers-color-scheme: light)').matches) root.setAttribute('data-theme','light');}catch(e){}
+  function syncToggle(){
+    var light=root.getAttribute('data-theme')==='light';
+    toggle.setAttribute('aria-pressed',String(light));
+    toggle.setAttribute('aria-label',light?'Switch to dark theme':'Switch to parchment theme');
+  }
+  syncToggle();
+  toggle.addEventListener('click',function(){
+    var next=root.getAttribute('data-theme')==='light'?'dark':'light';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('rcl-theme',next);}catch(e){}
+    syncToggle();
+  });
+
+  var NS='http://www.w3.org/2000/svg';
+  function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e;}
+
+  /* ---- THE SPINE: built from the table, never from a literal ---- */
+  (function(){
+    var svg=document.getElementById('spineSvg'); if(!svg) return;
+    var rows=[].slice.call(document.querySelectorAll('#spineData tr'));
+    if(!rows.length) return;
+    var W=1000,m=24,y=52;
+    var lo=1848, hi=2032;
+    function X(yr){return m+(yr-lo)/(hi-lo)*(W-2*m);}
+    svg.appendChild(el('line',{class:'ax',x1:m,y1:y,x2:W-m,y2:y}));
+    svg.appendChild(el('line',{class:'ax',x1:m,y1:y-6,x2:m,y2:y+6}));
+    svg.appendChild(el('line',{class:'ax',x1:W-m,y1:y-6,x2:W-m,y2:y+6}));
+    rows.forEach(function(r){
+      var yr=+r.getAttribute('data-year');
+      var a=el('a',{href:r.getAttribute('data-href')||'#'});
+      a.appendChild(el('circle',{class:'mk',cx:X(yr),cy:y,r:6}));
+      var nm=r.children[1].textContent.split(' ').pop();
+      var lb=el('text',{class:'lbl',x:X(yr),y:y-18,'text-anchor':'middle'});lb.textContent=nm;
+      var sb=el('text',{class:'sub',x:X(yr),y:y+26,'text-anchor':'middle'});sb.textContent=yr;
+      a.appendChild(lb);a.appendChild(sb);
+      svg.appendChild(a);
+    });
+    svg.closest('.spine').classList.add('chart--upgraded');
+  })();
+
+  /* ---- RUNSTRIP: built from the table ---- */
+  (function(){
+    var svg=document.getElementById('runSvg'); if(!svg) return;
+    var rows=[].slice.call(document.querySelectorAll('#runData tr'));
+    if(!rows.length) return;
+
+    var defs=el('defs',{});
+    var pat=el('pattern',{id:'hatchD',width:5,height:5,patternUnits:'userSpaceOnUse',patternTransform:'rotate(45)'});
+    pat.appendChild(el('rect',{width:5,height:5,fill:'var(--data-d)'}));
+    pat.appendChild(el('rect',{width:1.4,height:5,fill:'var(--bg)',opacity:.85}));
+    defs.appendChild(pat); svg.appendChild(defs);
+
+    var W=1000,m=12,base=146,band=96,gap=4;
+    var n=rows.length, w=(W-2*m-(n-1)*gap)/n;
+    svg.appendChild(el('line',{class:'base',x1:m,y1:base+.5,x2:W-m,y2:base+.5}));
+
+    rows.forEach(function(r,i){
+      var yr=r.children[0].textContent.trim();
+      var party=r.children[1].getAttribute('data-party');
+      var note=r.children[2].textContent.trim();
+      var isR=party==='R';
+      var h=isR?band*1.12:band;
+      var x=m+i*(w+gap), yTop=base-h;
+      var g=el('g',{tabindex:'0',role:'img'});
+      g.setAttribute('aria-label',yr+': '+(isR?'Republican':'Democratic')+(note?' — '+note:''));
+      g.appendChild(el('rect',{
+        x:x.toFixed(2), y:yTop.toFixed(2), width:w.toFixed(2), height:h.toFixed(2),
+        class:isR?'bar-r':'hatch'
+      }));
+      svg.appendChild(g);
+      if(isR){
+        var cx=x+w/2;
+        svg.appendChild(el('line',{class:'lead',x1:cx,y1:yTop-6,x2:cx,y2:yTop-22}));
+        var lab=el('text',{class:'call',x:cx+8,y:yTop-16});
+        lab.textContent='1896 — McKinley, plurality';
+        svg.appendChild(lab);
+      }
+    });
+
+    [1880,1900,1920,1940,1960].forEach(function(d){
+      var i=(d-1872)/4, x=m+i*(w+gap)+w/2;
+      svg.appendChild(el('line',{class:'base',x1:x,y1:base,x2:x,y2:base+5,'stroke-width':1}));
+      var t=el('text',{class:'tick',x:x,y:base+22,'text-anchor':'middle'});t.textContent=d;
+      svg.appendChild(t);
+    });
+
+    document.getElementById('runFig').classList.add('chart--upgraded');
+  })();
+
+  /* ---- reveal: capped stagger, opacity + transform only ---- */
+  var items=document.querySelectorAll('[data-reveal]');
+  if(!('IntersectionObserver' in window)||reduce){
+    [].forEach.call(items,function(e){e.classList.add('in');});
+  }else{
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en,i){
+        if(!en.isIntersecting) return;
+        var d=Math.min(i,3)*60;                     /* capped at four */
+        setTimeout(function(){en.target.classList.add('in');},d);
+        io.unobserve(en.target);
+      });
+    },{rootMargin:'0px 0px -10% 0px',threshold:.05});
+    [].forEach.call(items,function(e){io.observe(e);});
+  }
+
+  /* ---- rail progress + active chapter: transform only, no layout ---- */
+  var fill=document.getElementById('railFill');
+  var chip=document.getElementById('chip');
+  var links=[].slice.call(document.querySelectorAll('.rail a'));
+  var targets=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  var tick=false;
+  function onScroll(){
+    if(tick) return; tick=true;
+    requestAnimationFrame(function(){
+      var max=document.documentElement.scrollHeight-innerHeight;
+      var p=max>0?Math.min(scrollY/max,1):0;
+      if(fill) fill.style.transform='scaleY('+p.toFixed(4)+')';
+      var mark=scrollY+innerHeight*0.35, cur=-1;
+      for(var i=0;i<targets.length;i++){
+        if(targets[i]&&targets[i].getBoundingClientRect().top+scrollY<=mark) cur=i;
+      }
+      links.forEach(function(a,i){
+        if(i===cur) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current');
+      });
+      if(chip&&cur>-1&&links[cur]) chip.textContent=links[cur].textContent.replace(/^\s*\d{4}\s*/,'').trim();
+      tick=false;
+    });
+  }
+  addEventListener('scroll',onScroll,{passive:true});
+  addEventListener('resize',onScroll);
+  onScroll();
+})();
+</script>
+</body>
+</html>
